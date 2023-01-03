@@ -31,14 +31,14 @@ class Board():
         boardRects = []
         for x in range(4):
             for y in range(4):
-                board1 = pygame.image.load("ChessPieces/board2.png")
+                board1 = pygame.image.load('ChessPieces/board2.png')
                 ballrect = board1.get_rect(center=(x*120+30,y*120+30))
-                board2 = pygame.image.load("ChessPieces/board1.png")
+                board2 = pygame.image.load('ChessPieces/board1.png')
                 ballrect2 = board2.get_rect(center=(x*120+90, y*120+30))
 
-                board3 = pygame.image.load("ChessPieces/board2.png")
+                board3 = pygame.image.load('ChessPieces/board2.png')
                 ballrect3 = board1.get_rect(center=(x*120+90,y*120+90))
-                board4 = pygame.image.load("ChessPieces/board1.png")
+                board4 = pygame.image.load('ChessPieces/board1.png')
                 ballrect4 = board2.get_rect(center=(x*120+30, y*120+90))
 
                 boards.append(board1)
