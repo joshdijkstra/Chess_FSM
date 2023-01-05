@@ -3,7 +3,7 @@ package com.chess_fsm.chess.game;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 
-import com.chess_fsm.chess.DTO.moveDTO;
+import com.chess_fsm.chess.game.dto.moveDTO;
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
 import com.chess_fsm.chess.game.gameLogic.Board.BoardService;
 

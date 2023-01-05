@@ -1,4 +1,4 @@
-package com.chess_fsm.chess.DTO;
+package com.chess_fsm.chess.game.dto;
 
 import java.util.List;
 
