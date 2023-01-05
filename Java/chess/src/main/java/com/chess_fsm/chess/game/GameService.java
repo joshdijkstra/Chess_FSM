@@ -10,7 +10,7 @@ public class GameService {
 
 
     private final BoardService boardService;
-    private final String startingFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    private final String startingFen = "rnbqkbnr/ppBppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
     public GameService(BoardService boardService){
         this.boardService = boardService;

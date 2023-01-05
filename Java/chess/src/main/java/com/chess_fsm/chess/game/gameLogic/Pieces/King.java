@@ -1,11 +1,9 @@
 package com.chess_fsm.chess.game.gameLogic.Pieces;
 
-import com.chess_fsm.chess.game.gameLogic.Piece;
-
 public class King extends Piece {
       
         public King(int x, int y, boolean isWhite) {
-          super(x,y,isWhite);
+          super(x,y,isWhite, PieceType.KING);
         }
       
         public boolean canMoveTo(int x, int y) {

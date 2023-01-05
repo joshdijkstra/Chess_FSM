@@ -1,0 +1,15 @@
+<div class="board">
+  <div *ngFor="let vTile of axisVertical.reverse(); let j = index" ngClass="">
+    <div
+      *ngFor="let hTile of axisHorizontal; let i = index"
+      class="tile"
+      [ngClass]="{
+        whiteTile: (i + j) % 2 === 0,
+        blackTile: (i + j) % 2 === 1
+      }"
+    >
+      <img class="piece" *ngIf="hasPieceOn(j, i)" [src]="lookUpImage(j, i)" />
+      <!-- {{ axisHorizontal[j] + axisVertical[i] }} -->
+    </div>
+  </div>
+</div>

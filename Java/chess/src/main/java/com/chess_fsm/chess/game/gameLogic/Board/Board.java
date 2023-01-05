@@ -2,21 +2,18 @@ package com.chess_fsm.chess.game.gameLogic.Board;
 
 import java.util.Arrays;
 
-import com.chess_fsm.chess.game.gameLogic.Piece;
-import com.chess_fsm.chess.game.gameLogic.Square;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Bishop;
 import com.chess_fsm.chess.game.gameLogic.Pieces.King;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Knight;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Pawn;
+import com.chess_fsm.chess.game.gameLogic.Pieces.Piece;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Queen;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Rook;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Board {
-    @Override
-  public String toString() {
-    return "Board [squares=" + Arrays.toString(squares) + "]";
-  }
 
+    @JsonProperty("squares")
     private Square[][] squares;
   
     public Board() {
@@ -49,7 +46,10 @@ public class Board {
         } else {
           // Create a new piece and place it on the board
           Piece piece = createPiece(c, x, y, Character.isUpperCase(c));
-          this.getSquare(x, y).setPiece(piece);
+          this.getSquare(x, 7-y).setPiece(piece);
+          
+          System.out.println(this.getSquare(x, y));
+
           x++;
         }
       }

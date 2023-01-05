@@ -7,7 +7,6 @@ public class BoardService {
     public Board createBoard(String fen){
         Board board = new Board();
         board.initPieces(fen);
-        System.out.println(board);
         return board;
     }
 }
