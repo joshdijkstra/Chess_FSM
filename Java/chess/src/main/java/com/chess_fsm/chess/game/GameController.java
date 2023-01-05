@@ -3,9 +3,13 @@ package com.chess_fsm.chess.game;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chess_fsm.chess.DTO.moveDTO;
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
 
 @RestController
@@ -19,8 +23,13 @@ public class GameController {
     }
 
     @GetMapping()
-    public ResponseEntity<Object> getBoard(){
-        return new ResponseEntity<Object>(gameService.startNewGame(),HttpStatus.OK);
+    public ResponseEntity<Board> getBoard(){
+        return new ResponseEntity<Board>(gameService.startNewGame(),HttpStatus.OK);
+    }
+
+    @PostMapping(path="/move")
+    public ResponseEntity<Board> move(@RequestBody moveDTO move){
+        return new ResponseEntity<Board>(gameService.makeMove(move),HttpStatus.OK);
     }
     
 }

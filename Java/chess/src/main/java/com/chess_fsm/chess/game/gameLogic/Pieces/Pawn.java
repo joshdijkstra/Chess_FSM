@@ -1,9 +1,6 @@
 package com.chess_fsm.chess.game.gameLogic.Pieces;
 
 public class Pawn extends Piece {
-        private int x;
-        private int y;
-        private boolean isWhite;
       
         public Pawn(int x, int y, boolean isWhite) {
             super(x,y,isWhite, PieceType.PAWN);

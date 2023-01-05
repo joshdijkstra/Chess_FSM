@@ -1,7 +1,9 @@
 package com.chess_fsm.chess.game;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 
+import com.chess_fsm.chess.DTO.moveDTO;
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
 import com.chess_fsm.chess.game.gameLogic.Board.BoardService;
 
@@ -10,7 +12,7 @@ public class GameService {
 
 
     private final BoardService boardService;
-    private final String startingFen = "rnbqkbnr/ppBppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    private final String startingFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
     public GameService(BoardService boardService){
         this.boardService = boardService;
@@ -22,5 +24,9 @@ public class GameService {
 
     public Board startNewGame(){
         return boardService.createBoard(startingFen);
+    }
+
+    public Board makeMove(moveDTO moves) {
+        return null;
     }
 }

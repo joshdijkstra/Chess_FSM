@@ -48,7 +48,7 @@ export class BoardComponent {
   };
 
   public lookUpImage = (x: number, y: number) => {
-    const colour = this.board.squares[x][y].piece.white ? 'w' : 'b';
+    const colour = this.board.squares[x][y].piece.isWhite ? 'w' : 'b';
     switch (this.board.squares[x][y].piece.pieceType) {
       case Pieces.PAWN:
         return `assets/pawn_${colour}.png`;
@@ -69,6 +69,7 @@ export class BoardComponent {
 
   public diplayPieces = (res: any) => {
     this.board = res;
+    console.log(res);
     return res;
   };
 }

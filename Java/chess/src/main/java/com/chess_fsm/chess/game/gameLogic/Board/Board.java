@@ -48,7 +48,7 @@ public class Board {
           Piece piece = createPiece(c, x, y, Character.isUpperCase(c));
           this.getSquare(x, 7-y).setPiece(piece);
           
-          System.out.println(this.getSquare(x, y));
+          // System.out.println(Character.isUpperCase(c));
 
           x++;
         }
@@ -59,6 +59,7 @@ public class Board {
   private static Piece createPiece(char c, int x, int y, boolean isWhite) {
     switch (Character.toUpperCase(c)) {
       case 'P':
+      System.out.println(isWhite);
         return new Pawn(x, y, isWhite);
       case 'N':
         return new Knight(x, y, isWhite);
