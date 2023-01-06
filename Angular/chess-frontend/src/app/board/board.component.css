@@ -7,6 +7,10 @@
   background-color: greenyellow;
 }
 
+.board:hover {
+  cursor: pointer;
+}
+
 .tile {
   display: grid;
   place-content: center;

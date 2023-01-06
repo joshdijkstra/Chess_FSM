@@ -3,10 +3,16 @@ package com.chess_fsm.chess.game.gameState;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.chess_fsm.chess.game.GameObjects;
+import com.chess_fsm.chess.game.dto.moveDTO;
+import com.chess_fsm.chess.game.gameLogic.Board.Board;
+import com.chess_fsm.chess.game.gameLogic.Board.Square;
 import com.chess_fsm.chess.game.transitions.TransitionPhase;
 import com.chess_fsm.chess.player.Player;
 import com.chess_fsm.chess.player.PlayerService;
 
+import lombok.Data;
+
+@Data
 public class GameState {
     private final String username;
     private final TransitionPhase phase;
@@ -21,4 +27,16 @@ public class GameState {
         this.playerService = playerService;
         this.gameObjects = gameObjects;
     }
+
+    public void makeMove(moveDTO moves) {
+        Board board = this.getGameObjects().getBoard();
+        Square current = board.getSquare(moves.getPieceAt().get(0), moves.getPieceAt().get(1));
+        Square moveTo = board.getSquare(moves.getMoveTo().get(0), moves.getMoveTo().get(1));
+        moveTo.setPiece(current.getPiece());
+        board.setSquare(moves.getMoveTo().get(0), moves.getMoveTo().get(1), moveTo);
+        board.setSquare(moves.getPieceAt().get(0),
+                        moves.getPieceAt().get(1), 
+                        new Square(moves.getPieceAt().get(0), moves.getPieceAt().get(1)));
+    }
+
 }

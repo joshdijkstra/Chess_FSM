@@ -15,6 +15,7 @@ public class Board {
 
     @JsonProperty("squares")
     private Square[][] squares;
+
   
     public Board() {
       squares = new Square[8][8];
@@ -27,6 +28,10 @@ public class Board {
   
     public Square getSquare(int x, int y) {
       return squares[x][y];
+    }
+
+    public void setSquare(int x, int y, Square square){
+      squares[x][y] = square;
     }
 
     public void initPieces(String fen){
@@ -48,7 +53,6 @@ public class Board {
           Piece piece = createPiece(c, x, y, Character.isUpperCase(c));
           this.getSquare(x, 7-y).setPiece(piece);
           
-          // System.out.println(Character.isUpperCase(c));
 
           x++;
         }
@@ -59,7 +63,6 @@ public class Board {
   private static Piece createPiece(char c, int x, int y, boolean isWhite) {
     switch (Character.toUpperCase(c)) {
       case 'P':
-      System.out.println(isWhite);
         return new Pawn(x, y, isWhite);
       case 'N':
         return new Knight(x, y, isWhite);

@@ -8,8 +8,14 @@
         blackTile: (i + j) % 2 === 1
       }"
     >
-      <img class="piece" *ngIf="hasPieceOn(j, i)" [src]="lookUpImage(j, i)" />
-      <!-- {{ axisHorizontal[j] + axisVertical[i] }} -->
+      <div
+        class="piece"
+        *ngIf="hasPieceOn(j, i)"
+        [ngStyle]="{ 'background-image': 'url(' + lookUpImage(j, i) + ')' }"
+        (mousemove)="movePiece($event)"
+        (mousedown)="grabPiece($event)"
+        (mouseup)="dropPiece($event)"
+      ></div>
     </div>
   </div>
 </div>
