@@ -8,6 +8,7 @@ import com.chess_fsm.chess.game.gameLogic.Board.Board;
 import com.chess_fsm.chess.game.gameLogic.Board.BoardService;
 import com.chess_fsm.chess.game.gameState.GameState;
 import com.chess_fsm.chess.game.gameState.GameStateService;
+import com.chess_fsm.chess.game.logger.Logger;
 
 @Service
 public class GameService {
@@ -15,10 +16,12 @@ public class GameService {
     public final String username = "josh";
     private final BoardService boardService;
     private final GameStateService gameStateService;
+    private final Logger logger;
 
-    public GameService(BoardService boardService,GameStateService gameStateService){
+    public GameService(BoardService boardService,GameStateService gameStateService , Logger logger){
         this.boardService = boardService;
         this.gameStateService = gameStateService;
+        this.logger = logger;
     }
 
     public String getGameDetails(){
@@ -33,7 +36,7 @@ public class GameService {
     public Board makeMove(moveDTO moves) {
         GameState game = gameStateService.getStateForPlayer(this.username);
         game.makeMove(moves);
-        System.out.println("User " + username + " moved" + moves.toString());
+        logger.logMove(moves, username);
         return game.getGameObjects().getBoard();
     }
 }
