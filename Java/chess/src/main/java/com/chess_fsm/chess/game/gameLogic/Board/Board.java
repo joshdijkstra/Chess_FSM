@@ -11,6 +11,9 @@ import com.chess_fsm.chess.game.gameLogic.Pieces.Queen;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Rook;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Data;
+
+@Data
 public class Board {
 
     @JsonProperty("squares")
