@@ -30,6 +30,7 @@ public class GameService {
 
     public Board startNewGame(){
         GameState game = gameStateService.getStateForPlayer(this.username);
+        boardService.updateLegalMoves(game.getGameObjects().getBoard());
         return game.getGameObjects().getBoard();
     }
 
@@ -37,6 +38,7 @@ public class GameService {
         GameState game = gameStateService.getStateForPlayer(this.username);
         game.makeMove(moves);
         logger.logMove(moves, username);
+        boardService.updateLegalMoves(game.getGameObjects().getBoard());
         return game.getGameObjects().getBoard();
     }
 }

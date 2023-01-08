@@ -16,11 +16,13 @@ public class Piece {
         this.y = y;
         this.isWhite = isWhite;
         this.pieceType = pieceType;
+        this.legalMoves = new legalMoveDTO();
     }
 
     @Override
     public String toString() {
-        return "Piece [x=" + x + ", y=" + y + ", isWhite=" + isWhite + "]";
+        return "Piece [x=" + x + ", y=" + y + ", isWhite=" + isWhite + ", pieceType=" + pieceType + ", legalMoves="
+                + legalMoves + "]";
     }
 
     public void getLegalMoves(Board board){
@@ -30,13 +32,12 @@ public class Piece {
             for (int col = 0; col < squares[row].length; col++) {
                 if (this.canMoveTo(row,col)){
                     legalMoves.addMove(row,col);
-
                 }
             }
          }
     }
 
-    private boolean canMoveTo() {
+    private boolean canMoveTo(int row , int col) {
         return false;
     }
 }

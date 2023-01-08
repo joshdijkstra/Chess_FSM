@@ -9,6 +9,10 @@ import lombok.Data;
 public class legalMoveDTO {
     public List<int[]> moves; 
 
+    public legalMoveDTO(){
+        this.moves = new ArrayList<int[]>();
+    }
+
     public void addMove(int row , int col){
         int[] list = {row,col};
         this.moves.add(list);
