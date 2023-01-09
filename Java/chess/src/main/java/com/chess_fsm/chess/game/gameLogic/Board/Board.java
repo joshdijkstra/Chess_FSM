@@ -1,7 +1,5 @@
 package com.chess_fsm.chess.game.gameLogic.Board;
 
-import java.util.Arrays;
-
 import com.chess_fsm.chess.game.gameLogic.Pieces.Bishop;
 import com.chess_fsm.chess.game.gameLogic.Pieces.King;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Knight;
@@ -35,6 +33,10 @@ public class Board {
 
     public void setSquare(int x, int y, Square square){
       squares[x][y] = square;
+    }
+
+    public Piece isPieceOnSquare(int x , int y){
+      return getSquare(x, y).getPiece();
     }
 
     public void initPieces(String fen){

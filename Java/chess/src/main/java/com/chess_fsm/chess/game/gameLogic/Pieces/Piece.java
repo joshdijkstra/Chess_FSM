@@ -1,22 +1,24 @@
 package com.chess_fsm.chess.game.gameLogic.Pieces;
 
-import com.chess_fsm.chess.game.dto.legalMoveDTO;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
-import com.chess_fsm.chess.game.gameLogic.Board.Square;
 
 public class Piece {
     public int x;
     public int y;
     public boolean isWhite;
     public PieceType pieceType;
-    public legalMoveDTO legalMoves;
+    public List<int[]> legalMoves; 
+
 
     public Piece(int x, int y, boolean isWhite, PieceType pieceType) {
         this.x = x;
         this.y = y;
         this.isWhite = isWhite;
         this.pieceType = pieceType;
-        this.legalMoves = new legalMoveDTO();
+        this.legalMoves = new ArrayList<int[]>();
     }
 
     @Override
@@ -25,19 +27,15 @@ public class Piece {
                 + legalMoves + "]";
     }
 
-    public void getLegalMoves(Board board){
-        legalMoveDTO legalMoves = new legalMoveDTO();
-        Square[][] squares = board.getSquares();
-        for (int row = 0; row < squares.length; row++) {
-            for (int col = 0; col < squares[row].length; col++) {
-                if (this.canMoveTo(row,col)){
-                    legalMoves.addMove(row,col);
-                }
-            }
-         }
+    public void addLegalMove(int row , int col){
+        int[] list = {row,col};
+        System.out.println(list.toString());
+        this.legalMoves.add(list);
+        System.out.println(this.legalMoves.toString());
     }
 
-    private boolean canMoveTo(int row , int col) {
-        return false;
+    public void getLegalMoves(Board board){
+        System.out.println("Overwrite");
     }
+
 }

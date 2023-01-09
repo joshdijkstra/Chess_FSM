@@ -2,8 +2,6 @@ package com.chess_fsm.chess.game.gameLogic.Board;
 
 import org.springframework.stereotype.Service;
 
-import com.chess_fsm.chess.game.dto.legalMoveDTO;
-
 @Service
 public class BoardService {
     public Board createBoard(String fen){

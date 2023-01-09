@@ -2,8 +2,6 @@ package com.chess_fsm.chess.player;
 
 import java.time.LocalDate;
 
-import lombok.Data;
-
 public class Player {
     private Long id;
     private String username;
