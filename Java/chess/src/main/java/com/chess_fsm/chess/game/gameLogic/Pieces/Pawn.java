@@ -37,6 +37,8 @@ public class Pawn extends Piece {
   }
 
   public void getLegalMoves(Board board) {
+    this.clearLegalMoves();
+
     int increment = this.isWhite ? 1 : -1;
     int boardPos = this.isWhite ? 1 : 6;
     if (this.y + increment < 8 && this.y + increment >= 0) {

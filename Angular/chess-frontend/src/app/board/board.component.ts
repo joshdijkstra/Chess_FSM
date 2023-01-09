@@ -39,13 +39,18 @@ export class BoardComponent {
 
   public isLegalSquare = (x: number, y: number) => {
     if (this.activeX != null && this.activeY != null) {
-      const thisPiece =
+      const moves =
         this.board.squares[this.activeX][this.activeY].piece.legalMoves;
-      console.log(thisPiece);
-      if (x == 3 && y == 2) {
-        return true;
-      }
+      const includesArray = (data: any[], arr: any[]) => {
+        return data.some(
+          (e) => Array.isArray(e) && e.every((o, i) => Object.is(arr[i], o))
+        );
+      };
+      return includesArray(moves, [x, y]);
+
+      // .includes([x, y]);
     }
+
     return false;
   };
 
