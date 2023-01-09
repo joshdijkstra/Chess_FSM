@@ -36,7 +36,6 @@ public class Pawn extends Piece {
           return true;
         }    
         public void getLegalMoves(Board board){
-          System.out.println("Calculating legal move for pawn");
           Square[][] squares = board.getSquares();
           for (int row = 0; row < squares.length; row++) {
               for (int col = 0; col < squares[row].length; col++) {

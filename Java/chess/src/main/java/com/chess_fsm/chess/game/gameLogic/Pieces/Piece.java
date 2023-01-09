@@ -29,9 +29,7 @@ public class Piece {
 
     public void addLegalMove(int row , int col){
         int[] list = {row,col};
-        System.out.println(list.toString());
         this.legalMoves.add(list);
-        System.out.println(this.legalMoves.toString());
     }
 
     public void getLegalMoves(Board board){

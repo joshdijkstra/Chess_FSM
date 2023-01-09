@@ -1,5 +1,7 @@
 package com.chess_fsm.chess.game.gameLogic.Board;
 
+import java.util.Arrays;
+
 import com.chess_fsm.chess.game.gameLogic.Pieces.Bishop;
 import com.chess_fsm.chess.game.gameLogic.Pieces.King;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Knight;
@@ -26,6 +28,10 @@ public class Board {
         }
       }
     }
+
+    public String toString(){
+      return Arrays.deepToString(this.squares);
+    }
   
     public Square getSquare(int x, int y) {
       return squares[x][y];
@@ -45,7 +51,7 @@ public class Board {
     String[] rows = parts[0].split("/");
 
     // Iterate through each row and set the pieces on the board
-    for (int y = 7; y >= 0; y--) {
+    for (int y = 0; y <= 7; y++) {
       String row = rows[7 - y];
       int x = 0;
       for (int i = 0; i < row.length(); i++) {
@@ -56,7 +62,7 @@ public class Board {
         } else {
           // Create a new piece and place it on the board
           Piece piece = createPiece(c, x, y, Character.isUpperCase(c));
-          this.getSquare(x, 7-y).setPiece(piece);
+          this.getSquare(x, y).setPiece(piece);
           
 
           x++;

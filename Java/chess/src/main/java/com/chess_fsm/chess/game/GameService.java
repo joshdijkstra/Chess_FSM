@@ -28,6 +28,8 @@ public class GameService {
 
     public Board startNewGame(){
         GameState game = gameStateService.getStateForPlayer(this.username);
+        System.out.println(game.getGameObjects().getBoard().toString());
+
         boardService.updateLegalMoves(game.getGameObjects().getBoard());
         return game.getGameObjects().getBoard();
     }
