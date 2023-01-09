@@ -10,19 +10,6 @@ public class Rook extends Piece {
       super(x,y,isWhite, PieceType.ROOK);
     }
   
-    public boolean canMoveTo(int x, int y) {
-      // Rooks can only move along rows or columns
-      if (x != this.x && y != this.y) {
-        return false;
-      }
-  
-      // Rooks cannot move to their current position
-      if (x == this.x && y == this.y) {
-        return false;
-      }
-  
-      return true;
-    }
     public void getLegalMoves(Board board){
       for (int row = this.x + 1 ; row < 8; row++){
         System.out.println(row + " , " + this.y);
@@ -37,7 +24,6 @@ public class Rook extends Piece {
       }
 
       for (int row = this.x -1 ; row >= 0; row--){
-        System.out.println(board.isPieceOnSquare(row, this.y).toString());
         if ( board.isPieceOnSquare(row, this.y) == null ){
           this.addLegalMove(row, this.y);
         } else if (board.isPieceOnSquare(row, this.y).isWhite != this.isWhite){

@@ -10,7 +10,9 @@ import { Pieces } from '../model/Piece';
 })
 export class BoardComponent {
   board: any;
-  activePiece: any;
+  activeElement: any;
+  activeX: any;
+  activeY: any;
   constructor(private http: HttpClient) {}
 
   axisVertical = ['1', '2', '3', '4', '5', '6', '7', '8'];
@@ -33,6 +35,18 @@ export class BoardComponent {
       moveTo: [0, 1],
     };
     return this.http.post(this.url + '/move', { headers: header, body: body });
+  };
+
+  public isLegalSquare = (x: number, y: number) => {
+    if (this.activeX != null && this.activeY != null) {
+      const thisPiece =
+        this.board.squares[this.activeX][this.activeY].piece.legalMoves;
+      console.log(thisPiece);
+      if (x == 3 && y == 2) {
+        return true;
+      }
+    }
+    return false;
   };
 
   public showBoard = () => {
@@ -90,28 +104,26 @@ export class BoardComponent {
     element.style.left = `${x}px`;
     element.style.top = `${y}px`;
 
-    this.activePiece = element;
+    this.activeElement = element;
+    this.activeX = Math.floor((e.clientX - 263) / 100);
+    this.activeY = 7 - Math.abs(Math.ceil((e.clientY - 54 - 800) / 100));
   };
 
   public movePiece = (e: MouseEvent) => {
-    if (this.activePiece) {
+    if (this.activeElement) {
       const x = e.clientX - 50;
       const y = e.clientY - 50;
-      this.activePiece.style.position = 'absolute';
-      this.activePiece.style.left = `${x}px`;
-      this.activePiece.style.top = `${y}px`;
+      this.activeElement.style.position = 'absolute';
+      this.activeElement.style.left = `${x}px`;
+      this.activeElement.style.top = `${y}px`;
     }
   };
 
   public dropPiece = (e: MouseEvent) => {
-    if (this.activePiece) {
-      this.snapToGrid(e);
-      this.activePiece = null;
+    if (this.activeElement) {
+      this.activeElement = null;
+      this.activeX = null;
+      this.activeY = null;
     }
-  };
-  public snapToGrid = (e: MouseEvent) => {
-    const grabX = Math.floor(e.clientX / 100);
-    const grabY = Math.abs(Math.ceil((e.clientY - 800) / 100));
-    console.log([grabX, grabY]);
   };
 }

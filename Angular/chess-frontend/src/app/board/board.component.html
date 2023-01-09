@@ -4,6 +4,7 @@
       *ngFor="let hTile of axisHorizontal; let i = index"
       class="tile"
       [ngClass]="{
+        legalTile: isLegalSquare(j, i),
         whiteTile: (i + j) % 2 === 0,
         blackTile: (i + j) % 2 === 1
       }"
