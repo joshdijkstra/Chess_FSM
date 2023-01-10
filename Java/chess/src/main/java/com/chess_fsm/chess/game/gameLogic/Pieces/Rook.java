@@ -11,7 +11,6 @@ public class Rook extends Piece {
   public void getLegalMoves(Board board) {
     this.clearLegalMoves();
     for (int row = this.x + 1; row < 8; row++) {
-      System.out.println(row + " , " + this.y);
       if (board.isPieceOnSquare(row, this.y) == null) {
         this.addLegalMove(row, this.y);
       } else if (board.isPieceOnSquare(row, this.y).isWhite != this.isWhite) {

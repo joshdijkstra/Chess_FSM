@@ -9,21 +9,8 @@ public class King extends Piece {
     super(x, y, isWhite, PieceType.KING);
   }
 
-  public boolean canMoveTo(int x, int y) {
-    // Kings can move one square in any direction
-    if (Math.abs(x - this.x) > 1 || Math.abs(y - this.y) > 1) {
-      return false;
-    }
-
-    // Kings cannot move to their current position
-    if (x == this.x && y == this.y) {
-      return false;
-    }
-
-    return true;
-  }
-
   public void getLegalMoves(Board board) {
+    this.clearLegalMoves();
     for (int x = -1; x < 2; x++) {
       for (int y = -1; y < 2; y++) {
         if ((x != 0 && y != 0) && this.x + x >= 0 && this.x + x < 8 && this.y + y < 8 && this.y + y >= 0) {
