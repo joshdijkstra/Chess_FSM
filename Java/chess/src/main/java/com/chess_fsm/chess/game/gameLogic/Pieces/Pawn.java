@@ -1,7 +1,6 @@
 package com.chess_fsm.chess.game.gameLogic.Pieces;
 
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
-import com.chess_fsm.chess.game.gameLogic.Board.Square;
 
 public class Pawn extends Piece {
 
