@@ -12,23 +12,23 @@ import com.chess_fsm.chess.game.dto.moveDTO;
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
 
 @RestController
-@RequestMapping(path="api/v1/game")
+@RequestMapping(path = "api/v1/game")
 public class GameController {
 
     private final GameService gameService;
 
-    public GameController(GameService gameService){
+    public GameController(GameService gameService) {
         this.gameService = gameService;
     }
 
     @GetMapping()
-    public ResponseEntity<Board> getBoard(){
-        return new ResponseEntity<Board>(gameService.startNewGame(),HttpStatus.OK);
+    public ResponseEntity<Board> getBoard() {
+        return new ResponseEntity<Board>(gameService.startNewGame(), HttpStatus.OK);
     }
 
-    @PostMapping(path="/move")
-    public ResponseEntity<Board> move(@RequestBody moveDTO move){
-        return new ResponseEntity<Board>(gameService.makeMove(move),HttpStatus.OK);
+    @PostMapping(path = "/move")
+    public ResponseEntity<Board> move(@RequestBody moveDTO moveObj) {
+        return new ResponseEntity<Board>(gameService.makeMove(moveObj), HttpStatus.OK);
     }
-    
+
 }

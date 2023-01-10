@@ -16,19 +16,18 @@ public class GameService {
     private final GameStateService gameStateService;
     private final Logger logger;
 
-    public GameService(BoardService boardService,GameStateService gameStateService , Logger logger){
+    public GameService(BoardService boardService, GameStateService gameStateService, Logger logger) {
         this.boardService = boardService;
         this.gameStateService = gameStateService;
         this.logger = logger;
     }
 
-    public String getGameDetails(){
+    public String getGameDetails() {
         return "New Game Started";
     }
 
-    public Board startNewGame(){
+    public Board startNewGame() {
         GameState game = gameStateService.getStateForPlayer(this.username);
-        System.out.println(game.getGameObjects().getBoard().toString());
 
         boardService.updateLegalMoves(game.getGameObjects().getBoard());
         return game.getGameObjects().getBoard();

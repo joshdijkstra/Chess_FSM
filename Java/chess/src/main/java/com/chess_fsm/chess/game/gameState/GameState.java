@@ -20,7 +20,8 @@ public class GameState {
     private GameObjects gameObjects;
     private CopyOnWriteArrayList<Player> players;
 
-    public GameState(CopyOnWriteArrayList<Player> players, String username, TransitionPhase phase, PlayerService playerService, GameObjects gameObjects){
+    public GameState(CopyOnWriteArrayList<Player> players, String username, TransitionPhase phase,
+            PlayerService playerService, GameObjects gameObjects) {
         this.players = players;
         this.username = username;
         this.phase = phase;
@@ -30,13 +31,14 @@ public class GameState {
 
     public void makeMove(moveDTO moves) {
         Board board = this.getGameObjects().getBoard();
-        Square current = board.getSquare(moves.getPieceAt().get(0), moves.getPieceAt().get(1));
-        Square moveTo = board.getSquare(moves.getMoveTo().get(0), moves.getMoveTo().get(1));
+        Square current = board.getSquare(moves.getPieceAt()[0], moves.getPieceAt()[1]);
+        Square moveTo = board.getSquare(moves.getMoveTo()[0], moves.getMoveTo()[1]);
+        current.getPiece().updateXY(moves.getMoveTo()[0], moves.getMoveTo()[1]);
         moveTo.setPiece(current.getPiece());
-        board.setSquare(moves.getMoveTo().get(0), moves.getMoveTo().get(1), moveTo);
-        board.setSquare(moves.getPieceAt().get(0),
-                        moves.getPieceAt().get(1), 
-                        new Square(moves.getPieceAt().get(0), moves.getPieceAt().get(1)));
+        board.setSquare(moves.getMoveTo()[0], moves.getMoveTo()[1], moveTo);
+        board.setSquare(moves.getPieceAt()[0],
+                moves.getPieceAt()[1],
+                new Square(moves.getPieceAt()[0], moves.getPieceAt()[1]));
     }
 
 }

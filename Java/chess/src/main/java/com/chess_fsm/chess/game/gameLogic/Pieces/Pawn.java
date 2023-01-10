@@ -17,7 +17,8 @@ public class Pawn extends Piece {
       if (board.isPieceOnSquare(this.x, this.y + increment) == null) {
         this.addLegalMove(this.x, this.y + increment);
       }
-      if (board.isPieceOnSquare(this.x, this.y + (increment * 2)) == null && this.y == boardPos) {
+      if (board.isPieceOnSquare(this.x, this.y + (increment * 2)) == null
+          && board.isPieceOnSquare(this.x, this.y + increment) == null && this.y == boardPos) {
         this.addLegalMove(this.x, this.y + (increment * 2));
       }
       if (this.x + 1 < 8) {
@@ -28,7 +29,7 @@ public class Pawn extends Piece {
       }
       if (this.x - 1 >= 0) {
         if (board.isPieceOnSquare(this.x - 1, this.y + increment) != null
-            && board.isPieceOnSquare(this.x + 1, this.y + increment).isWhite != this.isWhite) {
+            && board.isPieceOnSquare(this.x - 1, this.y + increment).isWhite != this.isWhite) {
           this.addLegalMove(this.x - 1, this.y + increment);
         }
       }

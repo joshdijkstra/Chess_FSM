@@ -42,4 +42,9 @@ public class Piece {
         this.setLegalMoves(new ArrayList<int[]>());
     }
 
+    public void updateXY(int i, int j) {
+        this.setX(i);
+        this.setY(j);
+    }
+
 }

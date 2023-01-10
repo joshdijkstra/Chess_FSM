@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { take } from 'rxjs';
 import { Pieces } from '../model/Piece';
+import { moveDTO } from '../model/moveDTO';
 
 @Component({
   selector: 'app-board',
@@ -11,8 +12,12 @@ import { Pieces } from '../model/Piece';
 export class BoardComponent {
   board: any;
   activeElement: any;
+  originalX: any;
+  originalY: any;
   activeX: any;
   activeY: any;
+  offsetTop: any;
+  offsetLeft: any;
   constructor(private http: HttpClient) {}
 
   axisVertical = ['1', '2', '3', '4', '5', '6', '7', '8'];
@@ -21,6 +26,11 @@ export class BoardComponent {
 
   ngOnInit() {
     this.showBoard();
+    const chessboard = document.getElementById('chessboard');
+    if (chessboard != undefined) {
+      this.offsetLeft = chessboard?.offsetLeft;
+      this.offsetTop = chessboard?.offsetTop;
+    }
   }
 
   public getBoard = () => {
@@ -28,17 +38,33 @@ export class BoardComponent {
     return this.http.get(this.url, { headers: header });
   };
 
-  public makeMove = () => {
-    let header = new HttpHeaders().set('Content-Type', 'application/json');
-    let body = {
-      pieceAt: [0, 0],
-      moveTo: [0, 1],
+  public makeMove = (atX: number, atY: number, toX: number, toY: number) => {
+    const requestBody: moveDTO = {
+      pieceAt: [atX, atY],
+      moveTo: [toX, toY],
     };
-    return this.http.post(this.url + '/move', { headers: header, body: body });
+    let header = new HttpHeaders().set('Content-Type', 'application/json');
+    this.http
+      .post(this.url + '/move', JSON.stringify(requestBody), {
+        headers: header,
+      })
+      .pipe(take(1))
+      .subscribe({
+        next: (res) => {
+          this.diplayPieces(res);
+        },
+        error: () => {
+          console.log('error');
+        },
+      });
   };
 
   public isLegalSquare = (x: number, y: number) => {
-    if (this.activeX != null && this.activeY != null) {
+    if (
+      this.activeX != null &&
+      this.activeY != null &&
+      this.board != undefined
+    ) {
       const moves =
         this.board.squares[this.activeX][this.activeY].piece.legalMoves;
       const includesArray = (data: any[], arr: any[]) => {
@@ -47,8 +73,6 @@ export class BoardComponent {
         );
       };
       return includesArray(moves, [x, y]);
-
-      // .includes([x, y]);
     }
 
     return false;
@@ -68,7 +92,7 @@ export class BoardComponent {
   };
 
   public hasPieceOn = (x: number, y: number) => {
-    if (this.board.squares[x][y].piece != null) {
+    if (this.board != undefined && this.board.squares[x][y].piece != null) {
       return true;
     } else {
       return false;
@@ -103,6 +127,8 @@ export class BoardComponent {
 
   public grabPiece = (e: MouseEvent) => {
     const element = e.target as HTMLElement;
+    this.originalX = element.offsetLeft;
+    this.originalY = element.offsetTop;
     const x = e.clientX - 50;
     const y = e.clientY - 50;
     element.style.position = 'absolute';
@@ -110,8 +136,10 @@ export class BoardComponent {
     element.style.top = `${y}px`;
 
     this.activeElement = element;
-    this.activeX = Math.floor((e.clientX - 263) / 100);
-    this.activeY = 7 - Math.abs(Math.ceil((e.clientY - 54 - 800) / 100));
+    this.activeX = Math.floor((e.clientX - this.offsetLeft) / 100);
+    this.activeY =
+      7 - Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100));
+    console.log(this.activeX, this.activeY);
   };
 
   public movePiece = (e: MouseEvent) => {
@@ -126,9 +154,21 @@ export class BoardComponent {
 
   public dropPiece = (e: MouseEvent) => {
     if (this.activeElement) {
+      const targetX = Math.floor((e.clientX - this.offsetLeft) / 100);
+      const targetY =
+        7 - Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100));
+      if (this.isLegalSquare(targetX, targetY)) {
+        this.makeMove(this.activeX, this.activeY, targetX, targetY);
+      } else {
+        this.activeElement.style.position = 'absolute';
+        this.activeElement.style.left = `${this.originalX}px`;
+        this.activeElement.style.top = `${this.originalY}px`;
+      }
       this.activeElement = null;
       this.activeX = null;
       this.activeY = null;
+      this.originalX = null;
+      this.originalY = null;
     }
   };
 }
