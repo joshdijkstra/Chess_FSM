@@ -10,7 +10,7 @@ public class Bishop extends Piece {
 
   public void getLegalMoves(Board board) {
     this.clearLegalMoves();
-
+    this.clearDefenders();
     for (int row = 1; row < 8; row++) {
       if (this.x + row < 8 && this.y + row < 8) {
         if (board.isPieceOnSquare(this.x + row, this.y + row) == null) {
@@ -19,6 +19,7 @@ public class Bishop extends Piece {
           this.addLegalMove(this.x + row, this.y + row);
           break;
         } else if (board.isPieceOnSquare(this.x + row, this.y + row).isWhite == this.isWhite) {
+          this.addDefends(this.x + row, this.y + row);
           break;
         }
       }
@@ -32,6 +33,7 @@ public class Bishop extends Piece {
           this.addLegalMove(this.x + row, this.y - row);
           break;
         } else if (board.isPieceOnSquare(this.x + row, this.y - row).isWhite == this.isWhite) {
+          this.addDefends(this.x + row, this.y - row);
           break;
         }
       }
@@ -45,6 +47,7 @@ public class Bishop extends Piece {
           this.addLegalMove(this.x - row, this.y + row);
           break;
         } else if (board.isPieceOnSquare(this.x - row, this.y + row).isWhite == this.isWhite) {
+          this.addDefends(this.x - row, this.y + row);
           break;
         }
       }
@@ -58,6 +61,7 @@ public class Bishop extends Piece {
           this.addLegalMove(this.x - row, this.y - row);
           break;
         } else if (board.isPieceOnSquare(this.x - row, this.y - row).isWhite == this.isWhite) {
+          this.addDefends(this.x - row, this.y - row);
           break;
         }
       }

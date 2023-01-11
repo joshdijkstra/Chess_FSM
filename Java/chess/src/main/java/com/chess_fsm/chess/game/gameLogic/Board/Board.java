@@ -78,6 +78,11 @@ public class Board {
   public boolean isSquareAttacked(int x, int y, boolean isWhite) {
     List<Piece> pieces = this.getAllPieces();
     for (Piece piece : pieces) {
+      for (int[] defend : piece.getDefends()) {
+        if (piece.isWhite != isWhite && defend[0] == x && defend[1] == y) {
+          return true;
+        }
+      }
       for (int[] legalMove : piece.getLegalMoves()) {
         if (piece.pieceType != PieceType.PAWN && piece.isWhite != isWhite && legalMove[0] == x && legalMove[1] == y) {
           return true;

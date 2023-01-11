@@ -21,13 +21,13 @@ public class Pawn extends Piece {
           && board.isPieceOnSquare(this.x, this.y + increment) == null) {
         this.addLegalMove(this.x, this.y + (increment * 2));
       }
-      if (this.x + 1 < 8 && this.x + 1 >= 0) {
+      if (this.x + 1 < 8) {
         if (board.isPieceOnSquare(this.x + 1, this.y + increment) != null
             && board.isPieceOnSquare(this.x + 1, this.y + increment).isWhite != this.isWhite) {
           this.addLegalMove(this.x + 1, this.y + increment);
         }
       }
-      if (this.x - 1 >= 0 && this.x - 1 < 8) {
+      if (this.x - 1 >= 0) {
         if (board.isPieceOnSquare(this.x - 1, this.y + increment) != null
             && board.isPieceOnSquare(this.x - 1, this.y + increment).isWhite != this.isWhite) {
           this.addLegalMove(this.x - 1, this.y + increment);

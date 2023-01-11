@@ -10,6 +10,7 @@ public class Knight extends Piece {
 
   public void getLegalMoves(Board board) {
     this.clearLegalMoves();
+    this.clearDefenders();
     int[] permutations = { -2, -1, 1, 2 };
     int[] ones = { -1, 1 };
     int[] twos = { -2, 2 };
@@ -22,6 +23,10 @@ public class Knight extends Piece {
           if (board.isPieceOnSquare(this.x + perm, this.y + one) != null
               && board.isPieceOnSquare(this.x + perm, this.y + one).isWhite != this.isWhite) {
             this.addLegalMove(this.x + perm, this.y + one);
+          }
+          if (board.isPieceOnSquare(this.x + perm, this.y + one) != null
+              && board.isPieceOnSquare(this.x + perm, this.y + one).isWhite == this.isWhite) {
+            this.addDefends(this.x + perm, this.y + one);
           }
         }
       }

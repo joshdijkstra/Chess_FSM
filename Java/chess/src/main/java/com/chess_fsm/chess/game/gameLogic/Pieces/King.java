@@ -17,6 +17,7 @@ public class King extends Piece {
 
   public void getLegalMoves(Board board) {
     this.clearLegalMoves();
+    this.clearDefenders();
     for (int x = -1; x < 2; x++) {
       for (int y = -1; y < 2; y++) {
         if (x != 0 || y != 0) {
@@ -24,6 +25,9 @@ public class King extends Piece {
             if (board.isPieceOnSquare(this.x + x, this.y + y) != null
                 && board.isPieceOnSquare(this.x + x, this.y + y).isWhite != this.isWhite) {
               this.addLegalMove(this.x + x, this.y + y, board);
+            } else if (board.isPieceOnSquare(this.x + x, this.y + y) != null
+                && board.isPieceOnSquare(this.x + x, this.y + y).isWhite == this.isWhite) {
+              this.addDefends(this.x + x, this.y + y);
             } else if (board.isPieceOnSquare(this.x + x, this.y + y) == null) {
               this.addLegalMove(this.x + x, this.y + y, board);
             }

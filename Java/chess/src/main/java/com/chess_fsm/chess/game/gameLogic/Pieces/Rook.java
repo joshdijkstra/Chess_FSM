@@ -10,6 +10,7 @@ public class Rook extends Piece {
 
   public void getLegalMoves(Board board) {
     this.clearLegalMoves();
+    this.clearDefenders();
     for (int row = this.x + 1; row < 8; row++) {
       if (board.isPieceOnSquare(row, this.y) == null) {
         this.addLegalMove(row, this.y);
@@ -17,6 +18,7 @@ public class Rook extends Piece {
         this.addLegalMove(row, this.y);
         break;
       } else if (board.isPieceOnSquare(row, this.y).isWhite == this.isWhite) {
+        this.addDefends(row, this.y);
         break;
       }
     }
@@ -28,6 +30,7 @@ public class Rook extends Piece {
         this.addLegalMove(row, this.y);
         break;
       } else if (board.isPieceOnSquare(row, this.y).isWhite == this.isWhite) {
+        this.addDefends(row, this.y);
         break;
       }
     }
@@ -39,6 +42,8 @@ public class Rook extends Piece {
         this.addLegalMove(this.x, col);
         break;
       } else if (board.isPieceOnSquare(this.x, col).isWhite == this.isWhite) {
+        this.addDefends(this.x, col);
+
         break;
       }
     }
@@ -50,6 +55,8 @@ public class Rook extends Piece {
         this.addLegalMove(this.x, col);
         break;
       } else if (board.isPieceOnSquare(this.x, col).isWhite == this.isWhite) {
+        this.addDefends(this.x, col);
+
         break;
       }
     }

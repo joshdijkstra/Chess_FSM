@@ -14,6 +14,7 @@ public class Piece {
     public boolean isWhite;
     public PieceType pieceType;
     public List<int[]> legalMoves;
+    public List<int[]> defends;
 
     public Piece(int x, int y, boolean isWhite, PieceType pieceType) {
         this.x = x;
@@ -21,6 +22,8 @@ public class Piece {
         this.isWhite = isWhite;
         this.pieceType = pieceType;
         this.legalMoves = new ArrayList<int[]>();
+        this.defends = new ArrayList<int[]>();
+
     }
 
     @Override
@@ -34,12 +37,21 @@ public class Piece {
         this.legalMoves.add(list);
     }
 
+    public void addDefends(int row, int col) {
+        int[] list = { row, col };
+        this.defends.add(list);
+    }
+
     public void getLegalMoves(Board board) {
         System.out.println("Overwrite");
     }
 
     public void clearLegalMoves() {
         this.setLegalMoves(new ArrayList<int[]>());
+    }
+
+    public void clearDefenders() {
+        this.setDefends(new ArrayList<int[]>());
     }
 
     public void updateXY(int i, int j) {
