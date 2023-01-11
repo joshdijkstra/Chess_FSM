@@ -1,6 +1,8 @@
 package com.chess_fsm.chess.game.gameLogic.Board;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.chess_fsm.chess.game.gameLogic.Pieces.Bishop;
 import com.chess_fsm.chess.game.gameLogic.Pieces.King;
@@ -16,37 +18,60 @@ import lombok.Data;
 @Data
 public class Board {
 
-    @JsonProperty("squares")
-    private Square[][] squares;
+  @JsonProperty("squares")
+  private Square[][] squares;
 
-  
-    public Board() {
-      squares = new Square[8][8];
-      for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-          squares[i][j] = new Square(i, j);
+  public Board() {
+    squares = new Square[8][8];
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+        squares[i][j] = new Square(i, j);
+      }
+    }
+  }
+
+  public List<Piece> getAllPieces() {
+    List<Piece> pieces = new ArrayList<Piece>();
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+        if (isPieceOnSquare(i, j) != null) {
+          pieces.add(isPieceOnSquare(i, j));
         }
       }
     }
+    return pieces;
+  }
 
-    public String toString(){
-      return Arrays.deepToString(this.squares);
-    }
-  
-    public Square getSquare(int x, int y) {
-      return squares[x][y];
-    }
+  public String toString() {
+    return Arrays.deepToString(this.squares);
+  }
 
-    public void setSquare(int x, int y, Square square){
-      squares[x][y] = square;
-    }
+  public Square getSquare(int x, int y) {
+    return squares[x][y];
+  }
 
-    public Piece isPieceOnSquare(int x , int y){
-      return getSquare(x, y).getPiece();
-    }
+  public void setSquare(int x, int y, Square square) {
+    squares[x][y] = square;
+  }
 
-    public void initPieces(String fen){
-      // Split the FEN string into its different parts
+  public Piece isPieceOnSquare(int x, int y) {
+    return getSquare(x, y).getPiece();
+  }
+
+  public boolean isSquareAttacked(int x, int y, boolean isWhite) {
+    List<Piece> pieces = this.getAllPieces();
+    for (Piece piece : pieces) {
+      for (int[] legalMove : piece.getLegalMoves()) {
+        if (piece.isWhite != isWhite && legalMove[0] == x && legalMove[1] == y) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  public void initPieces(String fen) {
+    // Split the FEN string into its different parts
     String[] parts = fen.split(" ");
     String[] rows = parts[0].split("/");
 
@@ -63,7 +88,6 @@ public class Board {
           // Create a new piece and place it on the board
           Piece piece = createPiece(c, x, y, Character.isUpperCase(c));
           this.getSquare(x, y).setPiece(piece);
-          
 
           x++;
         }
@@ -79,7 +103,7 @@ public class Board {
         return new Knight(x, y, isWhite);
       case 'B':
         return new Bishop(x, y, isWhite);
-        case 'R':
+      case 'R':
         return new Rook(x, y, isWhite);
       case 'Q':
         return new Queen(x, y, isWhite);
@@ -90,5 +114,3 @@ public class Board {
     }
   }
 }
-  
-  

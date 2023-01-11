@@ -1,8 +1,15 @@
 package com.chess_fsm.chess.game.gameLogic.Pieces;
 
+import java.util.List;
+
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
 
+import lombok.Data;
+
+@Data
 public class King extends Piece {
+  public boolean inCheck = false;
+  public boolean hasMoved = false;
 
   public King(int x, int y, boolean isWhite) {
     super(x, y, isWhite, PieceType.KING);
@@ -16,13 +23,34 @@ public class King extends Piece {
           if (this.x + x >= 0 && this.x + x < 8 && this.y + y < 8 && this.y + y >= 0) {
             if (board.isPieceOnSquare(this.x + x, this.y + y) != null
                 && board.isPieceOnSquare(this.x + x, this.y + y).isWhite != this.isWhite) {
-              this.addLegalMove(this.x + x, this.y + y);
+              this.addLegalMove(this.x + x, this.y + y, board);
             } else if (board.isPieceOnSquare(this.x + x, this.y + y) == null) {
-              this.addLegalMove(this.x + x, this.y + y);
+              this.addLegalMove(this.x + x, this.y + y, board);
             }
           }
         }
       }
+    }
+  }
+
+  public void castle(Board board) {
+
+  }
+
+  public void addLegalMove(int row, int col, Board board) {
+    int[] list = { row, col };
+    if (!board.isSquareAttacked(row, col, this.isWhite)) {
+      this.legalMoves.add(list);
+    }
+  }
+
+  public boolean isInCheck(Board board) {
+    if (board.isSquareAttacked(this.x, this.y, this.isWhite)) {
+      this.setInCheck(true);
+      return true;
+    } else {
+      this.setInCheck(false);
+      return false;
     }
   }
 }

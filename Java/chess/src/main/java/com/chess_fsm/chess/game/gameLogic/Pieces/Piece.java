@@ -47,4 +47,10 @@ public class Piece {
         this.setY(j);
     }
 
+    public boolean isInCheck(Board board) {
+        System.out.println("Overwrite");
+        return false;
+
+    }
+
 }
