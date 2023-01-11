@@ -9,6 +9,7 @@ import com.chess_fsm.chess.game.gameLogic.Pieces.King;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Knight;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Pawn;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Piece;
+import com.chess_fsm.chess.game.gameLogic.Pieces.PieceType;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Queen;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Rook;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -58,11 +59,32 @@ public class Board {
     return getSquare(x, y).getPiece();
   }
 
+  public boolean getPawnAttacks(Piece piece, int x, int y, boolean isWhite) {
+    int increment = piece.isWhite ? 1 : -1;
+    if (piece.x + 1 < 8) {
+      if (piece.x + 1 == x && piece.y + increment == y) {
+        return true;
+      }
+    }
+    if (piece.x - 1 >= 0) {
+      if (piece.x - 1 == x && piece.y + increment == y) {
+        return true;
+      }
+    }
+    return false;
+
+  }
+
   public boolean isSquareAttacked(int x, int y, boolean isWhite) {
     List<Piece> pieces = this.getAllPieces();
     for (Piece piece : pieces) {
       for (int[] legalMove : piece.getLegalMoves()) {
-        if (piece.isWhite != isWhite && legalMove[0] == x && legalMove[1] == y) {
+        if (piece.pieceType != PieceType.PAWN && piece.isWhite != isWhite && legalMove[0] == x && legalMove[1] == y) {
+          return true;
+        }
+      }
+      if (piece.pieceType == PieceType.PAWN && piece.isWhite != isWhite) {
+        if (this.getPawnAttacks(piece, x, y, isWhite)) {
           return true;
         }
       }
