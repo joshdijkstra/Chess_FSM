@@ -35,9 +35,27 @@ public class King extends Piece {
         }
       }
     }
+    this.canCastle(board);
   }
 
-  public void castle(Board board) {
+  public void canCastle(Board board) {
+    int pos = this.isWhite ? 0 : 7;
+    Piece kRook = board.getSquare(0, pos).getPiece();
+    Piece qRook = board.getSquare(7, pos).getPiece();
+    if (!this.inCheck && !this.hasMoved) {
+      if (board.getSquare(1, pos).getPiece() == null && board.getSquare(2,
+          pos).getPiece() == null
+          && board.getSquare(3, pos).getPiece() == null && kRook != null &&
+          !kRook.getHasMoved()) {
+        this.addLegalMove(2, pos);
+      }
+      if (board.getSquare(5, pos).getPiece() == null && board.getSquare(6,
+          pos).getPiece() == null
+          && qRook != null &&
+          !qRook.getHasMoved()) {
+        this.addLegalMove(6, pos);
+      }
+    }
 
   }
 

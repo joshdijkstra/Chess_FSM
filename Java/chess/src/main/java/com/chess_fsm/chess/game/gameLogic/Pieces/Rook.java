@@ -2,7 +2,11 @@ package com.chess_fsm.chess.game.gameLogic.Pieces;
 
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
 
+import lombok.Data;
+
+@Data
 public class Rook extends Piece {
+  public boolean hasMoved = false;
 
   public Rook(int x, int y, boolean isWhite) {
     super(x, y, isWhite, PieceType.ROOK);

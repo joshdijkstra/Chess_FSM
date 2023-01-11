@@ -65,4 +65,12 @@ public class Piece {
 
     }
 
+    public void setHasMoved(boolean b) {
+        System.out.println("Overwrite");
+    }
+
+    public boolean getHasMoved() {
+        return false;
+    }
+
 }
