@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { take } from 'rxjs';
 import { Pieces } from '../model/Piece';
 import { moveDTO } from '../model/moveDTO';
+import { NgControlStatus } from '@angular/forms';
 
 @Component({
   selector: 'app-board',
@@ -57,6 +58,11 @@ export class BoardComponent {
           console.log('error');
         },
       });
+  };
+
+  public isSquareAttacked = (x: number, y: number) => {
+    console.log(this.board.squares[x][y].attackedWhite);
+    return this.board.squares[x][y].attackedWhite;
   };
 
   public isLegalSquare = (x: number, y: number) => {

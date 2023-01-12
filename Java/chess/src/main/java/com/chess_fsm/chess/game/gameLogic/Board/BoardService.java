@@ -12,6 +12,12 @@ public class BoardService {
         return board;
     }
 
+    public void updateBoard(Board board) {
+        board.getAllPieces();
+        this.updateLegalMoves(board);
+        board.getAttackedSquares();
+    }
+
     public void updateLegalMoves(Board board) {
         Square[][] squares = board.getSquares();
         for (int row = 0; row < squares.length; row++) {

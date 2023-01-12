@@ -43,7 +43,6 @@ public class GameState {
 
     public void makeMove(moveDTO moves) {
         int xDif = moves.getMoveTo()[0] - moves.getPieceAt()[0];
-        System.out.println(xDif);
         Board board = this.getGameObjects().getBoard();
         Square current = board.getSquare(moves.getPieceAt()[0], moves.getPieceAt()[1]);
         Square moveTo = board.getSquare(moves.getMoveTo()[0], moves.getMoveTo()[1]);

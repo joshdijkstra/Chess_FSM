@@ -4,7 +4,7 @@
   grid-template-rows: repeat(8, 100px);
   width: 800px;
   height: 800px;
-  background-color: greenyellow;
+  background-color: none;
 }
 
 .board:hover {
@@ -28,6 +28,13 @@
 
 .legalTile {
   background-color: aquamarine;
+}
+
+.attackedSquareBlack {
+  background-color: rgba(0, 0, 255);
+}
+.attackedSquareWhite {
+  background-color: rgba(0, 0, 155);
 }
 
 .piece {

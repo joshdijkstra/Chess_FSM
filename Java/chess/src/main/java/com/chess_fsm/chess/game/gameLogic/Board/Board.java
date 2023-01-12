@@ -21,8 +21,14 @@ public class Board {
 
   @JsonProperty("squares")
   private Square[][] squares;
+  private List<Piece> piecesAll;
+  private List<Piece> whitePieces;
+  private List<Piece> blackPieces;
 
   public Board() {
+    this.piecesAll = new ArrayList<Piece>();
+    this.whitePieces = new ArrayList<Piece>();
+    this.blackPieces = new ArrayList<Piece>();
     squares = new Square[8][8];
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
@@ -31,20 +37,40 @@ public class Board {
     }
   }
 
-  public List<Piece> getAllPieces() {
-    List<Piece> pieces = new ArrayList<Piece>();
+  public void getAllPieces() {
+    List<Piece> aPieces = new ArrayList<Piece>();
+    List<Piece> wPieces = new ArrayList<Piece>();
+    List<Piece> bPieces = new ArrayList<Piece>();
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
         if (isPieceOnSquare(i, j) != null) {
-          pieces.add(isPieceOnSquare(i, j));
+          Piece piece = isPieceOnSquare(i, j);
+          aPieces.add(isPieceOnSquare(i, j));
+          if (piece.isWhite) {
+            wPieces.add(piece);
+          } else {
+            bPieces.add(piece);
+          }
         }
       }
     }
-    return pieces;
+    this.setPiecesAll(aPieces);
+    this.setBlackPieces(bPieces);
+    this.setWhitePieces(wPieces);
   }
 
   public String toString() {
     return Arrays.deepToString(this.squares);
+  }
+
+  public void getAttackedSquares() {
+    for (int x = 0; x < 8; x++) {
+      for (int y = 0; y < 8; y++) {
+        getSquare(x, y).isAttacked(this.isSquareAttacked(x, y, false), false);
+        getSquare(x, y).isAttacked(this.isSquareAttacked(x, y, true), true);
+
+      }
+    }
   }
 
   public Square getSquare(int x, int y) {
@@ -76,7 +102,7 @@ public class Board {
   }
 
   public boolean isSquareAttacked(int x, int y, boolean isWhite) {
-    List<Piece> pieces = this.getAllPieces();
+    List<Piece> pieces = isWhite ? this.getBlackPieces() : this.getWhitePieces();
     for (Piece piece : pieces) {
       for (int[] defend : piece.getDefends()) {
         if (piece.isWhite != isWhite && defend[0] == x && defend[1] == y) {

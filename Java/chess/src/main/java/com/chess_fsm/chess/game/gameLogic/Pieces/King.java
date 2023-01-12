@@ -46,7 +46,8 @@ public class King extends Piece {
       if (board.getSquare(1, pos).getPiece() == null && board.getSquare(2,
           pos).getPiece() == null
           && board.getSquare(3, pos).getPiece() == null && kRook != null &&
-          !kRook.getHasMoved()) {
+          !kRook.getHasMoved() && !board.isSquareAttacked(2, pos, this.isWhite)
+          && !board.isSquareAttacked(3, pos, this.isWhite)) {
         this.addLegalMove(2, pos);
       }
       if (board.getSquare(5, pos).getPiece() == null && board.getSquare(6,
