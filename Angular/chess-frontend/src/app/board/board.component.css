@@ -27,7 +27,21 @@
 }
 
 .legalTile {
-  background-color: aquamarine;
+  background-image: url('/assets/dot_PNG29.png');
+  width: 100px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 160px;
+}
+
+.captureTile {
+  background-image: url('/assets/38619.png');
+  width: 100px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100px;
 }
 
 .attackedSquareBlack {
