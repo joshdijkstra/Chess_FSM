@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { take } from 'rxjs';
 import { Pieces } from '../model/Piece';
 import { moveDTO } from '../model/moveDTO';
-import { NgControlStatus } from '@angular/forms';
+import { WebsocketService } from '../websocket-service.service';
 
 @Component({
   selector: 'app-board',
@@ -19,19 +19,25 @@ export class BoardComponent {
   activeY: any;
   offsetTop: any;
   offsetLeft: any;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private websocketService : WebsocketService) {}
 
   axisVertical = ['1', '2', '3', '4', '5', '6', '7', '8'];
   axisHorizontal = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
   url = 'api/v1/game';
 
   ngOnInit() {
+
     this.showBoard();
     const chessboard = document.getElementById('chessboard');
     if (chessboard != undefined) {
       this.offsetLeft = chessboard?.offsetLeft;
       this.offsetTop = chessboard?.offsetTop;
     }
+  }
+
+  sendMessage() {
+      this.websocketService.sendMessage("Sending Message to Server");
+  
   }
 
   public getBoard = () => {
