@@ -2,17 +2,16 @@ package com.chess_fsm.chess.game;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.chess_fsm.chess.game.dto.moveDTO;
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
 
-@RestController
-@RequestMapping(path = "api/v1/game")
+@Controller
 public class GameController {
 
     private final GameService gameService;
@@ -21,12 +20,14 @@ public class GameController {
         this.gameService = gameService;
     }
 
-    @GetMapping()
+    @MessageMapping("/startGame")
+    @SendTo("/topic/messages")
     public ResponseEntity<Board> getBoard() {
         return new ResponseEntity<Board>(gameService.startNewGame(), HttpStatus.OK);
     }
 
-    @PostMapping(path = "/move")
+    @MessageMapping("/makeMove")
+    @SendTo("/topic/messages")
     public ResponseEntity<Board> move(@RequestBody moveDTO moveObj) {
         return new ResponseEntity<Board>(gameService.makeMove(moveObj), HttpStatus.OK);
     }
