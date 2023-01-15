@@ -19,15 +19,17 @@ export class BoardComponent {
   activeY: any;
   offsetTop: any;
   offsetLeft: any;
-  constructor(private http: HttpClient, private websocketService : WebsocketService) {}
+  constructor(
+    private http: HttpClient,
+    private websocketService: WebsocketService
+  ) {}
 
   axisVertical = ['1', '2', '3', '4', '5', '6', '7', '8'];
   axisHorizontal = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
   url = 'api/v1/game';
 
   ngOnInit() {
-
-    this.showBoard();
+    // this.showBoard();
     const chessboard = document.getElementById('chessboard');
     if (chessboard != undefined) {
       this.offsetLeft = chessboard?.offsetLeft;
@@ -36,14 +38,15 @@ export class BoardComponent {
   }
 
   sendMessage() {
-      this.websocketService.sendMessage("Sending Message to Server");
-  
+    this.websocketService.startGame();
+
+    this.diplayPieces(this.websocketService.board);
   }
 
-  public getBoard = () => {
-    let header = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.get(this.url, { headers: header });
-  };
+  // public getBoard = () => {
+  //   let header = new HttpHeaders().set('Content-Type', 'application/json');
+  //   return this.http.get(this.url, { headers: header });
+  // };
 
   public makeMove = (atX: number, atY: number, toX: number, toY: number) => {
     const requestBody: moveDTO = {
@@ -90,18 +93,18 @@ export class BoardComponent {
     return false;
   };
 
-  public showBoard = () => {
-    this.getBoard()
-      .pipe(take(1))
-      .subscribe({
-        next: (res) => {
-          this.diplayPieces(res);
-        },
-        error: () => {
-          console.log('error');
-        },
-      });
-  };
+  // public showBoard = () => {
+  //   this.getBoard()
+  //     .pipe(take(1))
+  //     .subscribe({
+  //       next: (res) => {
+  //         this.diplayPieces(res);
+  //       },
+  //       error: () => {
+  //         console.log('error');
+  //       },
+  //     });
+  // };
 
   public hasPieceOn = (x: number, y: number) => {
     if (this.board != undefined && this.board.squares[x][y].piece != null) {
@@ -133,7 +136,6 @@ export class BoardComponent {
 
   public diplayPieces = (res: any) => {
     this.board = res;
-    console.log(res);
     return res;
   };
 
@@ -151,7 +153,6 @@ export class BoardComponent {
     this.activeX = Math.floor((e.clientX - this.offsetLeft) / 100);
     this.activeY =
       7 - Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100));
-    console.log(this.activeX, this.activeY);
   };
 
   public movePiece = (e: MouseEvent) => {
