@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { moveDTO } from './model/moveDTO';
 
 // Declare SockJS and Stomp
 declare var SockJS;
@@ -13,7 +14,7 @@ export class WebsocketService {
     this.initializeWebSocketConnection();
   }
   public stompClient : any;
-  public msg = [];
+  public msg :any ;
   initializeWebSocketConnection() {
     const serverUrl = 'http://localhost:8080/socket';
     const ws = new SockJS(serverUrl);
@@ -23,13 +24,18 @@ export class WebsocketService {
     this.stompClient.connect({}, function(frame: any) {
       that.stompClient.subscribe('/message', (message: any) => {
         if (message.body) {
-          that.msg.push(message.body);
+          // console.log(JSON.parse(message.body))
+          that.msg = JSON.parse(message.body);
         }
       });
     });
   }
-  
-  sendMessage(message: any) {
-    this.stompClient.send('/app/send/message' , {}, message);
+
+  startGame() {
+    this.stompClient.send('/app/send/message' , {}, );
+  }
+
+  makeMove(move: moveDTO){
+    this.stompClient.send('/app/ws-makemove' , {}, move);
   }
 }

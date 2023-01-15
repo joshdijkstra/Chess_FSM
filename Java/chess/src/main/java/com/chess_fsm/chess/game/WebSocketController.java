@@ -7,6 +7,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import com.chess_fsm.chess.game.dto.moveDTO;
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
 
 @Controller
@@ -22,10 +23,17 @@ public class WebSocketController {
     }
 
     @MessageMapping("/send/message")
-    public void sendMessage(String message){
-        System.out.println(message);
+    public void startGame(){
+        System.out.println("Starting game");
         this.template.convertAndSend("/message",  gameService.startNewGame());
     //     return gameService.startNewGame();
+
+    }
+
+    @MessageMapping("/ws-makemove")
+    public void makeMove(moveDTO moveObj){
+        System.out.println("Making move");
+        this.template.convertAndSend("/message",  gameService.makeMove(moveObj));
 
     }
 
