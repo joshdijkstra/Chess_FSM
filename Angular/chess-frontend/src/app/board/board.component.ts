@@ -3,8 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { take } from 'rxjs';
 import { Pieces } from '../model/Piece';
 import { moveDTO } from '../model/moveDTO';
-import { WebsocketService } from '../websocket-service.service';
 
+declare var SockJS;
+declare var Stomp;
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -19,10 +20,32 @@ export class BoardComponent {
   activeY: any;
   offsetTop: any;
   offsetLeft: any;
-  constructor(
-    private http: HttpClient,
-    private websocketService: WebsocketService
-  ) {}
+  constructor(private http: HttpClient) {
+    this.initializeWebSocketConnection();
+  }
+  public stompClient: any;
+  public msg: any;
+  public callback: any;
+
+  initializeWebSocketConnection() {
+    const serverUrl = 'http://localhost:8080/socket';
+    const ws = new SockJS(serverUrl);
+    this.stompClient = Stomp.over(ws);
+    const that = this;
+    // tslint:disable-next-line:only-arrow-functions
+    this.stompClient.connect(
+      { login: 'mylogin', passcode: 'mypasscode' },
+      function (frame: any) {
+        that.stompClient.subscribe('/message', (message: any) => {
+          if (message.body) {
+            // console.log(JSON.parse(message.body))
+            that.diplayPieces(JSON.parse(message.body));
+          }
+        });
+        that.stompClient.send('/app/send/message', {});
+      }
+    );
+  }
 
   axisVertical = ['1', '2', '3', '4', '5', '6', '7', '8'];
   axisHorizontal = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -37,12 +60,6 @@ export class BoardComponent {
     }
   }
 
-  sendMessage() {
-    this.websocketService.startGame();
-
-    this.diplayPieces(this.websocketService.board);
-  }
-
   // public getBoard = () => {
   //   let header = new HttpHeaders().set('Content-Type', 'application/json');
   //   return this.http.get(this.url, { headers: header });
@@ -53,20 +70,7 @@ export class BoardComponent {
       pieceAt: [atX, atY],
       moveTo: [toX, toY],
     };
-    let header = new HttpHeaders().set('Content-Type', 'application/json');
-    this.http
-      .post(this.url + '/move', JSON.stringify(requestBody), {
-        headers: header,
-      })
-      .pipe(take(1))
-      .subscribe({
-        next: (res) => {
-          this.diplayPieces(res);
-        },
-        error: () => {
-          console.log('error');
-        },
-      });
+    this.stompClient.send('/app/ws-makemove', {}, JSON.stringify(requestBody));
   };
 
   public isSquareAttacked = (x: number, y: number) => {
