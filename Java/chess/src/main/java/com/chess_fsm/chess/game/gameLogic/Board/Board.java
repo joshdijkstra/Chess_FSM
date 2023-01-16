@@ -24,11 +24,14 @@ public class Board {
   private List<Piece> piecesAll;
   private List<Piece> whitePieces;
   private List<Piece> blackPieces;
+  private boolean whiteToMove = true;
+  private List<String> legalMoves;
 
   public Board() {
     this.piecesAll = new ArrayList<Piece>();
     this.whitePieces = new ArrayList<Piece>();
     this.blackPieces = new ArrayList<Piece>();
+    this.legalMoves = new ArrayList<String>();
     squares = new Square[8][8];
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
