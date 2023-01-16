@@ -66,11 +66,16 @@ export class BoardComponent {
   // };
 
   public makeMove = (atX: number, atY: number, toX: number, toY: number) => {
-    const requestBody: moveDTO = {
-      pieceAt: [atX, atY],
-      moveTo: [toX, toY],
-    };
-    this.stompClient.send('/app/ws-makemove', {}, JSON.stringify(requestBody));
+    const requestBody: String =
+      this.axisHorizontal[atX] +
+      this.axisVertical[atY] +
+      this.axisHorizontal[toX] +
+      this.axisVertical[toY];
+    this.stompClient.send(
+      '/app/ws-makemove',
+      {},
+      JSON.stringify({ move: requestBody })
+    );
   };
 
   public isSquareAttacked = (x: number, y: number) => {

@@ -4,6 +4,5 @@ import lombok.Data;
 
 @Data
 public class moveDTO {
-    private int[] pieceAt;
-    private int[] moveTo;
+    private String move;
 }

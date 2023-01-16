@@ -12,6 +12,7 @@ import com.chess_fsm.chess.player.PlayerService;
 @Component
 public class GameStateFactory {
     private final PlayerService playerService;
+    GameStateService gameStateService;
 
     public GameStateFactory(PlayerService playerService) {
         this.playerService = playerService;
@@ -19,6 +20,10 @@ public class GameStateFactory {
 
     public GameState newGameState(String username) {
         GameObjects gameObjects = new GameObjects();
-        return new GameState(new CopyOnWriteArrayList<Player>() {{playerService.get(username);}}, username, TransitionPhase.LOGIN, playerService, gameObjects);
+        return new GameState(new CopyOnWriteArrayList<Player>() {
+            {
+                playerService.get(username);
+            }
+        }, username, TransitionPhase.LOGIN, playerService, gameObjects);
     }
 }

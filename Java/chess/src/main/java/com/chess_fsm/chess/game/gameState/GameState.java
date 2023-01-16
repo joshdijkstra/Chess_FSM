@@ -3,6 +3,7 @@ package com.chess_fsm.chess.game.gameState;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.chess_fsm.chess.game.GameObjects;
+import com.chess_fsm.chess.game.dto.Move;
 import com.chess_fsm.chess.game.dto.moveDTO;
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
 import com.chess_fsm.chess.game.gameLogic.Board.Square;
@@ -21,6 +22,8 @@ public class GameState {
     private final PlayerService playerService;
     private GameObjects gameObjects;
     private CopyOnWriteArrayList<Player> players;
+    public final char[] xAxis = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H' };
+    public final char[] yAxis = { '1', '2', '3', '4', '5', '6', '7', '8' };
 
     public GameState(CopyOnWriteArrayList<Player> players, String username, TransitionPhase phase,
             PlayerService playerService, GameObjects gameObjects) {
@@ -41,7 +44,8 @@ public class GameState {
                 new Square(xDif >= 0 ? 7 : 0, isWhite ? 0 : 7));
     }
 
-    public void makeMove(moveDTO moves) {
+    public void makeMove(moveDTO move) {
+        Move moves = this.moveDecoder(move.getMove());
         int xDif = moves.getMoveTo()[0] - moves.getPieceAt()[0];
         Board board = this.getGameObjects().getBoard();
         Square current = board.getSquare(moves.getPieceAt()[0], moves.getPieceAt()[1]);
@@ -58,6 +62,24 @@ public class GameState {
         board.setSquare(moves.getPieceAt()[0],
                 moves.getPieceAt()[1],
                 new Square(moves.getPieceAt()[0], moves.getPieceAt()[1]));
+    }
+
+    public Move moveDecoder(String move) {
+        Move mv = new Move();
+        int[] pieceAt = { new String(xAxis).indexOf(move.charAt(0)), new String(yAxis).indexOf(move.charAt(1)) };
+        int[] moveTo = { new String(xAxis).indexOf(move.charAt(2)), new String(yAxis).indexOf(move.charAt(3)) };
+        mv.setPieceAt(pieceAt);
+        mv.setMoveTo(moveTo);
+        return mv;
+    }
+
+    public String moveEncoder(Move move) {
+        StringBuilder mv = new StringBuilder();
+        mv.append(xAxis[move.getPieceAt()[0]]);
+        mv.append(yAxis[move.getPieceAt()[1]]);
+        mv.append(xAxis[move.getMoveTo()[0]]);
+        mv.append(yAxis[move.getMoveTo()[1]]);
+        return mv.toString();
     }
 
 }

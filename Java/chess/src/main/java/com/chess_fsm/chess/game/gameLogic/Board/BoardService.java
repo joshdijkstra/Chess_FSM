@@ -24,8 +24,6 @@ public class BoardService {
             piece.clearDefenders();
         }
         for (Piece piece : board.isWhiteToMove() ? board.getWhitePieces() : board.getBlackPieces()) {
-            piece.clearLegalMoves();
-            piece.clearDefenders();
             piece.getLegalMoves(board);
             if (piece.pieceType == PieceType.KING) {
                 piece.isInCheck(board);

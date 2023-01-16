@@ -5,6 +5,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Service;
 
+import com.chess_fsm.chess.game.dto.Move;
+import com.chess_fsm.chess.game.dto.moveDTO;
+
 @Service
 public class GameStateService {
     private final GameStateFactory stateFactory;
@@ -28,5 +31,5 @@ public class GameStateService {
     public void saveStateForPlayer(String username, GameState gameState) {
         gameStateMap.put(username, gameState);
     }
-}
 
+}
