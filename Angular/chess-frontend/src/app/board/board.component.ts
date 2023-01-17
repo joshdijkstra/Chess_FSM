@@ -20,7 +20,7 @@ export class BoardComponent {
   activeY: any;
   offsetTop: any;
   offsetLeft: any;
-  playerWhite = false;
+  playerWhite = true;
   promoting = false;
 
   constructor(private http: HttpClient) {
