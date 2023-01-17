@@ -3,7 +3,9 @@ package com.chess_fsm.chess.game.gameLogic.Pieces;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.chess_fsm.chess.game.dto.Move;
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
+import static com.chess_fsm.chess.game.gameState.Decoders.*;
 
 import lombok.Data;
 
@@ -32,9 +34,10 @@ public class Piece {
                 + legalMoves + "]";
     }
 
-    public void addLegalMove(int row, int col) {
+    public void addLegalMove(int row, int col, Board board) {
         int[] list = { row, col };
         this.legalMoves.add(list);
+        board.addLegalMove(moveEncoder(new Move(new int[] { this.x, this.y }, list)));
     }
 
     public void addDefends(int row, int col) {

@@ -28,7 +28,7 @@ public class GameController {
 
     @MessageMapping("/makeMove")
     @SendTo("/topic/messages")
-    public ResponseEntity<Board> move(@RequestBody moveDTO moveObj) {
+    public ResponseEntity<Board> move(@RequestBody String moveObj) {
         return new ResponseEntity<Board>(gameService.makeMove(moveObj), HttpStatus.OK);
     }
 

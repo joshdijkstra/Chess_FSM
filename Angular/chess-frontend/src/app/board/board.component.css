@@ -27,7 +27,7 @@
 }
 
 .legalTile {
-  background-image: url('/assets/dot_PNG29.png');
+  background-image: url("/assets/dot_PNG29.png");
   width: 100px;
   height: 100px;
   background-repeat: no-repeat;
@@ -36,7 +36,7 @@
 }
 
 .captureTile {
-  background-image: url('/assets/38619.png');
+  background-image: url("/assets/38619.png");
   width: 100px;
   height: 100px;
   background-repeat: no-repeat;
@@ -58,7 +58,24 @@
   background-position: center;
   background-size: 80px;
 }
-.testButton{
-  width : 12rem;
+.testButton {
+  width: 12rem;
   height: 12rem;
+}
+
+.promoting {
+  position: absolute;
+  background-color: black;
+  opacity: 30%;
+  width: 800px;
+  height: 800px;
+}
+
+.piece {
+  width: 100px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80px;
+  position: absolute;
 }

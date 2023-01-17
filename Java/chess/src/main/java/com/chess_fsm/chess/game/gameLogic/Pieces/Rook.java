@@ -17,9 +17,9 @@ public class Rook extends Piece {
     this.clearDefenders();
     for (int row = this.x + 1; row < 8; row++) {
       if (board.isPieceOnSquare(row, this.y) == null) {
-        this.addLegalMove(row, this.y);
+        this.addLegalMove(row, this.y, board);
       } else if (board.isPieceOnSquare(row, this.y).isWhite != this.isWhite) {
-        this.addLegalMove(row, this.y);
+        this.addLegalMove(row, this.y, board);
         break;
       } else if (board.isPieceOnSquare(row, this.y).isWhite == this.isWhite) {
         this.addDefends(row, this.y);
@@ -29,9 +29,9 @@ public class Rook extends Piece {
 
     for (int row = this.x - 1; row >= 0; row--) {
       if (board.isPieceOnSquare(row, this.y) == null) {
-        this.addLegalMove(row, this.y);
+        this.addLegalMove(row, this.y, board);
       } else if (board.isPieceOnSquare(row, this.y).isWhite != this.isWhite) {
-        this.addLegalMove(row, this.y);
+        this.addLegalMove(row, this.y, board);
         break;
       } else if (board.isPieceOnSquare(row, this.y).isWhite == this.isWhite) {
         this.addDefends(row, this.y);
@@ -41,9 +41,9 @@ public class Rook extends Piece {
 
     for (int col = this.y + 1; col < 8; col++) {
       if (board.isPieceOnSquare(this.x, col) == null) {
-        this.addLegalMove(this.x, col);
+        this.addLegalMove(this.x, col, board);
       } else if (board.isPieceOnSquare(this.x, col).isWhite != this.isWhite) {
-        this.addLegalMove(this.x, col);
+        this.addLegalMove(this.x, col, board);
         break;
       } else if (board.isPieceOnSquare(this.x, col).isWhite == this.isWhite) {
         this.addDefends(this.x, col);
@@ -54,9 +54,9 @@ public class Rook extends Piece {
 
     for (int col = this.y - 1; col >= 0; col--) {
       if (board.isPieceOnSquare(this.x, col) == null) {
-        this.addLegalMove(this.x, col);
+        this.addLegalMove(this.x, col, board);
       } else if (board.isPieceOnSquare(this.x, col).isWhite != this.isWhite) {
-        this.addLegalMove(this.x, col);
+        this.addLegalMove(this.x, col, board);
         break;
       } else if (board.isPieceOnSquare(this.x, col).isWhite == this.isWhite) {
         this.addDefends(this.x, col);

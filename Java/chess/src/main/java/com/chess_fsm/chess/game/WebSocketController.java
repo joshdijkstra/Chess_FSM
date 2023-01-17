@@ -17,35 +17,36 @@ public class WebSocketController {
     private final GameService gameService;
 
     @Autowired
-    WebSocketController(SimpMessagingTemplate template, GameService gameService){
+    WebSocketController(SimpMessagingTemplate template, GameService gameService) {
         this.template = template;
         this.gameService = gameService;
     }
 
     @MessageMapping("/send/message")
-    public void startGame(){
+    public void startGame() {
         System.out.println("Starting game");
-        this.template.convertAndSend("/message",  gameService.startNewGame());
-    //     return gameService.startNewGame();
+        this.template.convertAndSend("/message", gameService.startNewGame());
+        // return gameService.startNewGame();
 
     }
 
     @MessageMapping("/ws-makemove")
-    public void makeMove(moveDTO moveObj){
+    public void makeMove(String moveObj) {
         System.out.println("Making move");
-        this.template.convertAndSend("/message",  gameService.makeMove(moveObj));
+        this.template.convertAndSend("/message", gameService.makeMove(moveObj));
 
     }
 
     // @MessageMapping("/startGame")
     // @SendTo("/topic/messages")
     // public Board getBoard() {
-    //     return gameService.startNewGame();
+    // return gameService.startNewGame();
     // }
 
     // @MessageMapping("/makeMove")
     // @SendTo("/topic/messages")
     // public ResponseEntity<Board> move(@RequestBody moveDTO moveObj) {
-    //     return new ResponseEntity<Board>(gameService.makeMove(moveObj), HttpStatus.OK);
+    // return new ResponseEntity<Board>(gameService.makeMove(moveObj),
+    // HttpStatus.OK);
     // }
 }

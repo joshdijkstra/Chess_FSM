@@ -20,6 +20,9 @@ export class BoardComponent {
   activeY: any;
   offsetTop: any;
   offsetLeft: any;
+  playerWhite = false;
+  promoting = false;
+
   constructor(private http: HttpClient) {
     this.initializeWebSocketConnection();
   }
@@ -65,17 +68,22 @@ export class BoardComponent {
   //   return this.http.get(this.url, { headers: header });
   // };
 
-  public makeMove = (atX: number, atY: number, toX: number, toY: number) => {
-    const requestBody: String =
+  public makeMove = (
+    atX: number,
+    atY: number,
+    toX: number,
+    toY: number,
+    promote?: string
+  ) => {
+    var requestBody: String =
       this.axisHorizontal[atX] +
       this.axisVertical[atY] +
       this.axisHorizontal[toX] +
       this.axisVertical[toY];
-    this.stompClient.send(
-      '/app/ws-makemove',
-      {},
-      JSON.stringify({ move: requestBody })
-    );
+    if (promote) {
+      requestBody += promote;
+    }
+    this.stompClient.send('/app/ws-makemove', {}, requestBody);
   };
 
   public isSquareAttacked = (x: number, y: number) => {
@@ -101,19 +109,6 @@ export class BoardComponent {
 
     return false;
   };
-
-  // public showBoard = () => {
-  //   this.getBoard()
-  //     .pipe(take(1))
-  //     .subscribe({
-  //       next: (res) => {
-  //         this.diplayPieces(res);
-  //       },
-  //       error: () => {
-  //         console.log('error');
-  //       },
-  //     });
-  // };
 
   public hasPieceOn = (x: number, y: number) => {
     if (this.board != undefined && this.board.squares[x][y].piece != null) {
@@ -160,8 +155,9 @@ export class BoardComponent {
 
     this.activeElement = element;
     this.activeX = Math.floor((e.clientX - this.offsetLeft) / 100);
-    this.activeY =
-      7 - Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100));
+    this.activeY = this.playerWhite
+      ? Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100))
+      : 7 - Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100));
   };
 
   public movePiece = (e: MouseEvent) => {
@@ -177,10 +173,20 @@ export class BoardComponent {
   public dropPiece = (e: MouseEvent) => {
     if (this.activeElement) {
       const targetX = Math.floor((e.clientX - this.offsetLeft) / 100);
-      const targetY =
-        7 - Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100));
+      const targetY = this.playerWhite
+        ? Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100))
+        : 7 - Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100));
       if (this.isLegalSquare(targetX, targetY)) {
+        // if (
+        //   this.board.squares[this.activeX][this.activeY].piece.pieceType ==
+        //     Pieces.PAWN &&
+        //   (targetY == 0 || targetY == 7)
+        // ) {
+        //   console.log('PROMOTION');
+        //   this.promote(targetX, targetY);
+        // } else {
         this.makeMove(this.activeX, this.activeY, targetX, targetY);
+        // }
       } else {
         this.activeElement.style.position = 'absolute';
         this.activeElement.style.left = `${this.originalX}px`;
@@ -193,4 +199,14 @@ export class BoardComponent {
       this.originalY = null;
     }
   };
+
+  public promote = (x: number, y: number) => {
+    this.promoting = true;
+    this.makeMove(this.activeX, this.activeY, x, y);
+  };
+
+  // public getPromotionPos = () => {
+  //   console.log(this.targetX);
+  //   return Number(this.targetX * 100);
+  // };
 }

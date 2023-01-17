@@ -2,7 +2,9 @@ package com.chess_fsm.chess.game.gameLogic.Pieces;
 
 import java.util.List;
 
+import com.chess_fsm.chess.game.dto.Move;
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
+import static com.chess_fsm.chess.game.gameState.Decoders.*;
 
 import lombok.Data;
 
@@ -48,13 +50,13 @@ public class King extends Piece {
           && board.getSquare(3, pos).getPiece() == null && kRook != null &&
           !kRook.getHasMoved() && !board.isSquareAttacked(2, pos, this.isWhite)
           && !board.isSquareAttacked(3, pos, this.isWhite)) {
-        this.addLegalMove(2, pos);
+        this.addLegalMove(2, pos, board);
       }
       if (board.getSquare(5, pos).getPiece() == null && board.getSquare(6,
           pos).getPiece() == null
           && qRook != null &&
           !qRook.getHasMoved()) {
-        this.addLegalMove(6, pos);
+        this.addLegalMove(6, pos, board);
       }
     }
 
@@ -64,6 +66,7 @@ public class King extends Piece {
     int[] list = { row, col };
     if (!board.isSquareAttacked(row, col, this.isWhite)) {
       this.legalMoves.add(list);
+      board.addLegalMove(moveEncoder(new Move(new int[] { this.x, this.y }, list)));
     }
   }
 

@@ -18,11 +18,11 @@ public class Knight extends Piece {
       for (int one : (Math.pow(perm, 2) == 4 ? ones : twos)) {
         if (this.x + perm >= 0 && this.x + perm < 8 && this.y + one >= 0 && this.y + one < 8) {
           if (board.isPieceOnSquare(this.x + perm, this.y + one) == null) {
-            this.addLegalMove(this.x + perm, this.y + one);
+            this.addLegalMove(this.x + perm, this.y + one, board);
           }
           if (board.isPieceOnSquare(this.x + perm, this.y + one) != null
               && board.isPieceOnSquare(this.x + perm, this.y + one).isWhite != this.isWhite) {
-            this.addLegalMove(this.x + perm, this.y + one);
+            this.addLegalMove(this.x + perm, this.y + one, board);
           }
           if (board.isPieceOnSquare(this.x + perm, this.y + one) != null
               && board.isPieceOnSquare(this.x + perm, this.y + one).isWhite == this.isWhite) {

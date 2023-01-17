@@ -32,9 +32,9 @@ public class GameService {
         return game.getGameObjects().getBoard();
     }
 
-    public Board makeMove(moveDTO moves) {
+    public Board makeMove(String moves) {
         GameState game = gameStateService.getStateForPlayer(this.username);
-        game.makeMove(moves);
+        boardService.makeMove(game.getGameObjects().getBoard(), moves);
         logger.logMove(moves, username);
         boardService.updateBoard(game.getGameObjects().getBoard());
         return game.getGameObjects().getBoard();

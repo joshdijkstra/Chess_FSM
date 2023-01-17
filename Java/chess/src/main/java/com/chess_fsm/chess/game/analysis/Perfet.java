@@ -1,5 +1,7 @@
 package com.chess_fsm.chess.game.analysis;
 
+import java.util.List;
+
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
 import com.chess_fsm.chess.game.gameLogic.Board.BoardService;
 
@@ -17,18 +19,17 @@ public class Perfet {
 
     public int run(int depth) {
         int nodes = 0;
+        if (depth == 0) {
+            return 1;
+        }
         boardService.updateBoard(this.board);
 
-        // if (depth == 0){
-        // return board.
-        // }
-
-        // n_moves = GenerateLegalMoves(move_list);
-        // for (i = 0; i < n_moves; i++) {
-        // MakeMove(move_list[i]);
-        // nodes += this.run(depth - 1);
-        // UndoMove(move_list[i]);
-        // }
+        List<String> moves = this.board.getLegalMoves();
+        for (String move : moves) {
+            boardService.makeMove(board, move);
+            nodes += this.run(depth - 1);
+            boardService.undoMove(board, move);
+        }
         return nodes;
 
     }

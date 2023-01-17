@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.chess_fsm.chess.game.dto.moveDTO;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Bishop;
 import com.chess_fsm.chess.game.gameLogic.Pieces.King;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Knight;
@@ -168,5 +169,9 @@ public class Board {
       default:
         throw new IllegalArgumentException("Invalid piece type: " + c);
     }
+  }
+
+  public void addLegalMove(moveDTO move) {
+    this.legalMoves.add(move.getMove());
   }
 }

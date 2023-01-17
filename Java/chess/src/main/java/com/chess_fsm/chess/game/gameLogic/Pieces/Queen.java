@@ -13,9 +13,9 @@ public class Queen extends Piece {
     this.clearDefenders();
     for (int row = this.x + 1; row < 8; row++) {
       if (board.isPieceOnSquare(row, this.y) == null) {
-        this.addLegalMove(row, this.y);
+        this.addLegalMove(row, this.y, board);
       } else if (board.isPieceOnSquare(row, this.y).isWhite != this.isWhite) {
-        this.addLegalMove(row, this.y);
+        this.addLegalMove(row, this.y, board);
         break;
       } else if (board.isPieceOnSquare(row, this.y).isWhite == this.isWhite) {
         this.addDefends(row, this.y);
@@ -25,9 +25,9 @@ public class Queen extends Piece {
 
     for (int row = this.x - 1; row >= 0; row--) {
       if (board.isPieceOnSquare(row, this.y) == null) {
-        this.addLegalMove(row, this.y);
+        this.addLegalMove(row, this.y, board);
       } else if (board.isPieceOnSquare(row, this.y).isWhite != this.isWhite) {
-        this.addLegalMove(row, this.y);
+        this.addLegalMove(row, this.y, board);
         break;
       } else if (board.isPieceOnSquare(row, this.y).isWhite == this.isWhite) {
         this.addDefends(row, this.y);
@@ -37,9 +37,9 @@ public class Queen extends Piece {
 
     for (int col = this.y + 1; col < 8; col++) {
       if (board.isPieceOnSquare(this.x, col) == null) {
-        this.addLegalMove(this.x, col);
+        this.addLegalMove(this.x, col, board);
       } else if (board.isPieceOnSquare(this.x, col).isWhite != this.isWhite) {
-        this.addLegalMove(this.x, col);
+        this.addLegalMove(this.x, col, board);
         break;
       } else if (board.isPieceOnSquare(this.x, col).isWhite == this.isWhite) {
         this.addDefends(this.x, col);
@@ -50,9 +50,9 @@ public class Queen extends Piece {
 
     for (int col = this.y - 1; col >= 0; col--) {
       if (board.isPieceOnSquare(this.x, col) == null) {
-        this.addLegalMove(this.x, col);
+        this.addLegalMove(this.x, col, board);
       } else if (board.isPieceOnSquare(this.x, col).isWhite != this.isWhite) {
-        this.addLegalMove(this.x, col);
+        this.addLegalMove(this.x, col, board);
         break;
       } else if (board.isPieceOnSquare(this.x, col).isWhite == this.isWhite) {
         this.addDefends(this.x, col);
@@ -63,9 +63,9 @@ public class Queen extends Piece {
     for (int row = 1; row < 8; row++) {
       if (this.x + row < 8 && this.y + row < 8) {
         if (board.isPieceOnSquare(this.x + row, this.y + row) == null) {
-          this.addLegalMove(this.x + row, this.y + row);
+          this.addLegalMove(this.x + row, this.y + row, board);
         } else if (board.isPieceOnSquare(this.x + row, this.y + row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x + row, this.y + row);
+          this.addLegalMove(this.x + row, this.y + row, board);
           break;
         } else if (board.isPieceOnSquare(this.x + row, this.y + row).isWhite == this.isWhite) {
           this.addDefends(this.x + row, this.y + row);
@@ -77,9 +77,9 @@ public class Queen extends Piece {
     for (int row = 1; row < 8; row++) {
       if (this.x + row < 8 && this.y - row >= 0) {
         if (board.isPieceOnSquare(this.x + row, this.y - row) == null) {
-          this.addLegalMove(this.x + row, this.y - row);
+          this.addLegalMove(this.x + row, this.y - row, board);
         } else if (board.isPieceOnSquare(this.x + row, this.y - row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x + row, this.y - row);
+          this.addLegalMove(this.x + row, this.y - row, board);
           break;
         } else if (board.isPieceOnSquare(this.x + row, this.y - row).isWhite == this.isWhite) {
           this.addDefends(this.x + row, this.y - row);
@@ -91,9 +91,9 @@ public class Queen extends Piece {
     for (int row = 1; row < 8; row++) {
       if (this.x - row >= 0 && this.y + row < 8) {
         if (board.isPieceOnSquare(this.x - row, this.y + row) == null) {
-          this.addLegalMove(this.x - row, this.y + row);
+          this.addLegalMove(this.x - row, this.y + row, board);
         } else if (board.isPieceOnSquare(this.x - row, this.y + row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x - row, this.y + row);
+          this.addLegalMove(this.x - row, this.y + row, board);
           break;
         } else if (board.isPieceOnSquare(this.x - row, this.y + row).isWhite == this.isWhite) {
           this.addDefends(this.x - row, this.y + row);
@@ -105,9 +105,9 @@ public class Queen extends Piece {
     for (int row = 1; row < 8; row++) {
       if (this.x - row >= 0 && this.y - row >= 0) {
         if (board.isPieceOnSquare(this.x - row, this.y - row) == null) {
-          this.addLegalMove(this.x - row, this.y - row);
+          this.addLegalMove(this.x - row, this.y - row, board);
         } else if (board.isPieceOnSquare(this.x - row, this.y - row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x - row, this.y - row);
+          this.addLegalMove(this.x - row, this.y - row, board);
           break;
         } else if (board.isPieceOnSquare(this.x - row, this.y - row).isWhite == this.isWhite) {
           this.addDefends(this.x - row, this.y - row);
