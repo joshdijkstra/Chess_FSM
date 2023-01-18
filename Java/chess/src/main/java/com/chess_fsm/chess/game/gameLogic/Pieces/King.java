@@ -69,14 +69,4 @@ public class King extends Piece {
       board.addLegalMove(moveEncoder(new Move(new int[] { this.x, this.y }, list)));
     }
   }
-
-  public boolean isInCheck(Board board) {
-    if (board.isSquareAttacked(this.x, this.y, this.isWhite)) {
-      this.setInCheck(true);
-      return true;
-    } else {
-      this.setInCheck(false);
-      return false;
-    }
-  }
 }

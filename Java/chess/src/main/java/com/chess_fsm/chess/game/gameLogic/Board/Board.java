@@ -25,8 +25,15 @@ public class Board {
   private List<Piece> piecesAll;
   private List<Piece> whitePieces;
   private List<Piece> blackPieces;
+  private Piece blackKing;
+  private Piece whiteKing;
   private boolean whiteToMove = true;
+  private boolean onlyKingMoves;
   private List<String> legalMoves;
+
+  private List<int[]> captureMask;
+  private List<int[]> pushMask;
+  private boolean requiresMasks;
 
   public Board() {
     this.piecesAll = new ArrayList<Piece>();
@@ -152,7 +159,7 @@ public class Board {
     }
   }
 
-  private static Piece createPiece(char c, int x, int y, boolean isWhite) {
+  private Piece createPiece(char c, int x, int y, boolean isWhite) {
     switch (Character.toUpperCase(c)) {
       case 'P':
         return new Pawn(x, y, isWhite);
@@ -165,7 +172,13 @@ public class Board {
       case 'Q':
         return new Queen(x, y, isWhite);
       case 'K':
-        return new King(x, y, isWhite);
+        Piece king = new King(x, y, isWhite);
+        if (isWhite) {
+          this.setWhiteKing(king);
+        } else {
+          this.setBlackKing(king);
+        }
+        return king;
       default:
         throw new IllegalArgumentException("Invalid piece type: " + c);
     }
@@ -173,5 +186,67 @@ public class Board {
 
   public void addLegalMove(moveDTO move) {
     this.legalMoves.add(move.getMove());
+  }
+
+  public void getCheckedMoves(boolean isWhite, BoardService boardService) {
+    this.setCaptureMask(null);
+    this.setPushMask(new ArrayList<int[]>());
+
+    List<Piece> pieces = isWhite ? this.blackPieces : this.whitePieces;
+    Piece king = isWhite ? this.whiteKing : this.blackKing;
+    int numCheckers = 0;
+    Piece checker = null;
+    for (Piece piece : pieces) {
+      for (int[] legalMove : piece.legalMoves) {
+        if (legalMove[0] == king.x && legalMove[1] == king.y) {
+          numCheckers++;
+          checker = piece;
+          king.setInCheck(true);
+        }
+      }
+    }
+    this.onlyKingMoves = false;
+    System.out.println("Number of checkers: " + numCheckers);
+    if (numCheckers > 1) {
+      this.onlyKingMoves = true;
+      boardService.recalculateLegalMoves(this);
+      return;
+    } else if (numCheckers == 1) {
+      // Find capture mask
+      List<int[]> captureMask = new ArrayList<int[]>();
+      captureMask.add(new int[] { checker.x, checker.y });
+      this.setCaptureMask(captureMask);
+      this.getPushMask(isWhite, checker, king);
+      this.setRequiresMasks(true);
+      boardService.recalculateLegalMoves(this);
+      return;
+    }
+    king.setInCheck(false);
+    this.setRequiresMasks(false);
+
+  }
+
+  public void getPushMask(boolean isWhite, Piece checker, Piece king) {
+    List<int[]> pushMask = new ArrayList<int[]>();
+    int xDif = 0;
+    int yDif = 0;
+    if (checker.x - king.x != 0) {
+      xDif = (checker.x - king.x) / Math.abs(checker.x - king.x);
+    }
+    if (checker.y - king.y != 0) {
+      yDif = (checker.y - king.y) / Math.abs(checker.y - king.y);
+
+    }
+
+    int x = king.x + xDif;
+    do {
+      int y = king.y + yDif;
+      do {
+        pushMask.add(new int[] { x, y });
+        y += yDif;
+      } while (y != (checker.y));
+      x += xDif;
+    } while (x != (checker.x));
+    this.setPushMask(pushMask);
   }
 }

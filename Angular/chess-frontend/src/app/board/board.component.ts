@@ -140,6 +140,7 @@ export class BoardComponent {
 
   public diplayPieces = (res: any) => {
     this.board = res;
+    console.log(res);
     return res;
   };
 

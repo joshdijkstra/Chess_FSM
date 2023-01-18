@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 
 import com.chess_fsm.chess.game.dto.Move;
-import com.chess_fsm.chess.game.dto.moveDTO;
 import com.chess_fsm.chess.game.gameLogic.Pieces.Piece;
 import com.chess_fsm.chess.game.gameLogic.Pieces.PieceType;
 import static com.chess_fsm.chess.game.gameState.Decoders.*;
@@ -17,20 +16,23 @@ public class BoardService {
         board.getAllPieces();
         this.updateLegalMoves(board);
         board.getAttackedSquares();
-        System.out.println(board.getLegalMoves());
     }
 
     public void updateLegalMoves(Board board) {
         board.setLegalMoves(new ArrayList<String>());
+        for (Piece piece : board.getPiecesAll()) {
+            piece.getLegalMoves(board);
+        }
+        board.getCheckedMoves(board.isWhiteToMove(), this);
         for (Piece piece : board.isWhiteToMove() ? board.getBlackPieces() : board.getWhitePieces()) {
             piece.clearLegalMoves();
-            piece.clearDefenders();
         }
-        for (Piece piece : board.isWhiteToMove() ? board.getWhitePieces() : board.getBlackPieces()) {
+    }
+
+    public void recalculateLegalMoves(Board board) {
+        board.setLegalMoves(new ArrayList<String>());
+        for (Piece piece : board.getPiecesAll()) {
             piece.getLegalMoves(board);
-            if (piece.pieceType == PieceType.KING) {
-                piece.isInCheck(board);
-            }
         }
     }
 

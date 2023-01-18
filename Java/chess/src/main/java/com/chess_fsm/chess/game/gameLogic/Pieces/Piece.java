@@ -1,6 +1,7 @@
 package com.chess_fsm.chess.game.gameLogic.Pieces;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.chess_fsm.chess.game.dto.Move;
@@ -36,8 +37,27 @@ public class Piece {
 
     public void addLegalMove(int row, int col, Board board) {
         int[] list = { row, col };
-        this.legalMoves.add(list);
-        board.addLegalMove(moveEncoder(new Move(new int[] { this.x, this.y }, list)));
+        if (!board.isOnlyKingMoves() || board.isWhiteToMove() != this.isWhite) {
+            if (board.isRequiresMasks()) {
+                for (int[] item : board.getPushMask()) {
+                    if (Arrays.equals(item, list)) {
+                        this.legalMoves.add(list);
+                        board.addLegalMove(moveEncoder(new Move(new int[] { this.x, this.y }, list)));
+                        return;
+                    }
+                }
+                for (int[] item : board.getCaptureMask()) {
+                    if (Arrays.equals(item, list)) {
+                        this.legalMoves.add(list);
+                        board.addLegalMove(moveEncoder(new Move(new int[] { this.x, this.y }, list)));
+                        return;
+                    }
+                }
+            } else {
+                this.legalMoves.add(list);
+                board.addLegalMove(moveEncoder(new Move(new int[] { this.x, this.y }, list)));
+            }
+        }
     }
 
     public void addDefends(int row, int col) {
@@ -74,6 +94,10 @@ public class Piece {
 
     public boolean getHasMoved() {
         return false;
+    }
+
+    public void setInCheck(boolean b) {
+        System.out.println("Overwrite");
     }
 
 }
