@@ -12,37 +12,21 @@ public class Bishop extends Piece {
     this.clearLegalMoves();
     this.clearDefenders();
 
-    for (int inc : new int[] { -1, 1 }) {
-      for (int row = 1; row < 8; row++) {
-        if (this.x + (row * inc) < 8 && this.y + (row * inc) < 8 && this.x + (row * inc) >= 0
-            && this.y + (row * inc) >= 0) {
-          if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc) == null) {
-            this.addLegalMove(this.x + row * inc, this.y + row * inc, board);
-          } else if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc).isWhite != this.isWhite) {
-            this.addLegalMove(this.x + row * inc, this.y + row * inc, board);
-            // this.xRayAttack(board, this.x + row, this.y + row);
-            break;
-          } else if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc).isWhite == this.isWhite) {
-            this.addDefends(this.x + row * inc, this.y + row * inc);
-            break;
-          }
-        }
-      }
-    }
-    for (int inc : new int[] { -1, 1 }) {
-      for (int row = 1; row < 8; row++) {
-        if (this.x + (row * inc) < 8 && this.y - (row * inc) < 8 && this.x + (row * inc) >= 0
-            && this.y - (row * inc) >= 0) {
-          if (board.isPieceOnSquare(this.x + row * inc, this.y - row * inc) == null) {
-            this.addLegalMove(this.x + row * inc, this.y - row * inc, board);
-          } else if (board.isPieceOnSquare(this.x + row * inc, this.y - row * inc).isWhite != this.isWhite) {
-            this.addLegalMove(this.x + row * inc, this.y - row * inc, board);
-            // this.xRayAttack(board, this.x + row, this.y - row);
-
-            break;
-          } else if (board.isPieceOnSquare(this.x + row * inc, this.y - row * inc).isWhite == this.isWhite) {
-            this.addDefends(this.x + row * inc, this.y - row * inc);
-            break;
+    for (int com : new int[] { -1, 1 }) {
+      for (int inc : new int[] { -1, 1 }) {
+        for (int row = 1; row < 8; row++) {
+          if (this.x + (row * inc) < 8 && this.y + (row * inc * com) < 8 && this.x + (row * inc) >= 0
+              && this.y + (row * inc * com) >= 0) {
+            if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc * com) == null) {
+              this.addLegalMove(this.x + row * inc, this.y + row * inc * com, board);
+            } else if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc * com).isWhite != this.isWhite) {
+              this.addLegalMove(this.x + row * inc, this.y + row * inc * com, board);
+              // this.xRayAttack(board, this.x + row, this.y + row);
+              break;
+            } else if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc * com).isWhite == this.isWhite) {
+              this.addDefends(this.x + row * inc, this.y + row * inc * com);
+              break;
+            }
           }
         }
       }
