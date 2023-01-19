@@ -11,69 +11,42 @@ public class Bishop extends Piece {
   public void getLegalMoves(Board board) {
     this.clearLegalMoves();
     this.clearDefenders();
-    for (int row = 1; row < 8; row++) {
-      if (this.x + row < 8 && this.y + row < 8) {
-        if (board.isPieceOnSquare(this.x + row, this.y + row) == null) {
-          this.addLegalMove(this.x + row, this.y + row, board);
-        } else if (board.isPieceOnSquare(this.x + row, this.y + row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x + row, this.y + row, board);
-          // this.xRayAttack(board, this.x + row, this.y + row);
-          break;
-        } else if (board.isPieceOnSquare(this.x + row, this.y + row).isWhite == this.isWhite) {
-          this.addDefends(this.x + row, this.y + row);
-          break;
+
+    for (int inc : new int[] { -1, 1 }) {
+      for (int row = 1; row < 8; row++) {
+        if (this.x + (row * inc) < 8 && this.y + (row * inc) < 8 && this.x + (row * inc) >= 0
+            && this.y + (row * inc) >= 0) {
+          if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc) == null) {
+            this.addLegalMove(this.x + row * inc, this.y + row * inc, board);
+          } else if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc).isWhite != this.isWhite) {
+            this.addLegalMove(this.x + row * inc, this.y + row * inc, board);
+            // this.xRayAttack(board, this.x + row, this.y + row);
+            break;
+          } else if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc).isWhite == this.isWhite) {
+            this.addDefends(this.x + row * inc, this.y + row * inc);
+            break;
+          }
         }
       }
     }
+    for (int inc : new int[] { -1, 1 }) {
+      for (int row = 1; row < 8; row++) {
+        if (this.x + (row * inc) < 8 && this.y - (row * inc) < 8 && this.x + (row * inc) >= 0
+            && this.y - (row * inc) >= 0) {
+          if (board.isPieceOnSquare(this.x + row * inc, this.y - row * inc) == null) {
+            this.addLegalMove(this.x + row * inc, this.y - row * inc, board);
+          } else if (board.isPieceOnSquare(this.x + row * inc, this.y - row * inc).isWhite != this.isWhite) {
+            this.addLegalMove(this.x + row * inc, this.y - row * inc, board);
+            // this.xRayAttack(board, this.x + row, this.y - row);
 
-    for (int row = 1; row < 8; row++) {
-      if (this.x + row < 8 && this.y - row >= 0) {
-        if (board.isPieceOnSquare(this.x + row, this.y - row) == null) {
-          this.addLegalMove(this.x + row, this.y - row, board);
-        } else if (board.isPieceOnSquare(this.x + row, this.y - row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x + row, this.y - row, board);
-          // this.xRayAttack(board, this.x + row, this.y - row);
-
-          break;
-        } else if (board.isPieceOnSquare(this.x + row, this.y - row).isWhite == this.isWhite) {
-          this.addDefends(this.x + row, this.y - row);
-          break;
+            break;
+          } else if (board.isPieceOnSquare(this.x + row * inc, this.y - row * inc).isWhite == this.isWhite) {
+            this.addDefends(this.x + row * inc, this.y - row * inc);
+            break;
+          }
         }
       }
     }
-
-    for (int row = 1; row < 8; row++) {
-      if (this.x - row >= 0 && this.y + row < 8) {
-        if (board.isPieceOnSquare(this.x - row, this.y + row) == null) {
-          this.addLegalMove(this.x - row, this.y + row, board);
-        } else if (board.isPieceOnSquare(this.x - row, this.y + row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x - row, this.y + row, board);
-          // this.xRayAttack(board, this.x - row, this.y + row);
-
-          break;
-        } else if (board.isPieceOnSquare(this.x - row, this.y + row).isWhite == this.isWhite) {
-          this.addDefends(this.x - row, this.y + row);
-          break;
-        }
-      }
-    }
-
-    for (int row = 1; row < 8; row++) {
-      if (this.x - row >= 0 && this.y - row >= 0) {
-        if (board.isPieceOnSquare(this.x - row, this.y - row) == null) {
-          this.addLegalMove(this.x - row, this.y - row, board);
-        } else if (board.isPieceOnSquare(this.x - row, this.y - row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x - row, this.y - row, board);
-          // this.xRayAttack(board, this.x - row, this.y - row);
-
-          break;
-        } else if (board.isPieceOnSquare(this.x - row, this.y - row).isWhite == this.isWhite) {
-          this.addDefends(this.x - row, this.y - row);
-          break;
-        }
-      }
-    }
-
   }
 
   // public void xRayAttack(Board board, int x, int y) {
