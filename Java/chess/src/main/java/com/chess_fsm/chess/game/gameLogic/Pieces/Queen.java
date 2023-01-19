@@ -11,107 +11,45 @@ public class Queen extends Piece {
   public void getLegalMoves(Board board) {
     this.clearLegalMoves();
     this.clearDefenders();
-    for (int row = this.x + 1; row < 8; row++) {
-      if (board.isPieceOnSquare(row, this.y) == null) {
-        this.addLegalMove(row, this.y, board);
-      } else if (board.isPieceOnSquare(row, this.y).isWhite != this.isWhite) {
-        this.addLegalMove(row, this.y, board);
-        break;
-      } else if (board.isPieceOnSquare(row, this.y).isWhite == this.isWhite) {
-        this.addDefends(row, this.y);
-        break;
-      }
-    }
 
-    for (int row = this.x - 1; row >= 0; row--) {
-      if (board.isPieceOnSquare(row, this.y) == null) {
-        this.addLegalMove(row, this.y, board);
-      } else if (board.isPieceOnSquare(row, this.y).isWhite != this.isWhite) {
-        this.addLegalMove(row, this.y, board);
-        break;
-      } else if (board.isPieceOnSquare(row, this.y).isWhite == this.isWhite) {
-        this.addDefends(row, this.y);
-        break;
-      }
-    }
-
-    for (int col = this.y + 1; col < 8; col++) {
-      if (board.isPieceOnSquare(this.x, col) == null) {
-        this.addLegalMove(this.x, col, board);
-      } else if (board.isPieceOnSquare(this.x, col).isWhite != this.isWhite) {
-        this.addLegalMove(this.x, col, board);
-        break;
-      } else if (board.isPieceOnSquare(this.x, col).isWhite == this.isWhite) {
-        this.addDefends(this.x, col);
-
-        break;
-      }
-    }
-
-    for (int col = this.y - 1; col >= 0; col--) {
-      if (board.isPieceOnSquare(this.x, col) == null) {
-        this.addLegalMove(this.x, col, board);
-      } else if (board.isPieceOnSquare(this.x, col).isWhite != this.isWhite) {
-        this.addLegalMove(this.x, col, board);
-        break;
-      } else if (board.isPieceOnSquare(this.x, col).isWhite == this.isWhite) {
-        this.addDefends(this.x, col);
-
-        break;
-      }
-    }
-    for (int row = 1; row < 8; row++) {
-      if (this.x + row < 8 && this.y + row < 8) {
-        if (board.isPieceOnSquare(this.x + row, this.y + row) == null) {
-          this.addLegalMove(this.x + row, this.y + row, board);
-        } else if (board.isPieceOnSquare(this.x + row, this.y + row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x + row, this.y + row, board);
-          break;
-        } else if (board.isPieceOnSquare(this.x + row, this.y + row).isWhite == this.isWhite) {
-          this.addDefends(this.x + row, this.y + row);
-          break;
+    for (int com : new int[] { 1, 0 }) {
+      for (int inc : new int[] { 1, -1 }) {
+        for (int row = 1; row < 8; row++) {
+          if (this.x + (row * (1 - com) * inc) < 8 && this.x + (row * (1 - com) * inc) >= 0
+              && this.y + (row * com) * inc >= 0
+              && this.y + (row * com) * inc < 8) {
+            if (board.isPieceOnSquare(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc) == null) {
+              this.addLegalMove(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc, board);
+            } else if (board.isPieceOnSquare(this.x + (row * (1 - com) * inc),
+                this.y + (row * com) * inc).isWhite != this.isWhite) {
+              this.addLegalMove(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc, board);
+              break;
+            } else if (board.isPieceOnSquare(this.x + (row * (1 - com) * inc),
+                this.y + (row * com) * inc).isWhite == this.isWhite) {
+              this.addDefends(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc);
+              break;
+            }
+          }
         }
       }
-    }
 
-    for (int row = 1; row < 8; row++) {
-      if (this.x + row < 8 && this.y - row >= 0) {
-        if (board.isPieceOnSquare(this.x + row, this.y - row) == null) {
-          this.addLegalMove(this.x + row, this.y - row, board);
-        } else if (board.isPieceOnSquare(this.x + row, this.y - row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x + row, this.y - row, board);
-          break;
-        } else if (board.isPieceOnSquare(this.x + row, this.y - row).isWhite == this.isWhite) {
-          this.addDefends(this.x + row, this.y - row);
-          break;
-        }
-      }
     }
-
-    for (int row = 1; row < 8; row++) {
-      if (this.x - row >= 0 && this.y + row < 8) {
-        if (board.isPieceOnSquare(this.x - row, this.y + row) == null) {
-          this.addLegalMove(this.x - row, this.y + row, board);
-        } else if (board.isPieceOnSquare(this.x - row, this.y + row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x - row, this.y + row, board);
-          break;
-        } else if (board.isPieceOnSquare(this.x - row, this.y + row).isWhite == this.isWhite) {
-          this.addDefends(this.x - row, this.y + row);
-          break;
-        }
-      }
-    }
-
-    for (int row = 1; row < 8; row++) {
-      if (this.x - row >= 0 && this.y - row >= 0) {
-        if (board.isPieceOnSquare(this.x - row, this.y - row) == null) {
-          this.addLegalMove(this.x - row, this.y - row, board);
-        } else if (board.isPieceOnSquare(this.x - row, this.y - row).isWhite != this.isWhite) {
-          this.addLegalMove(this.x - row, this.y - row, board);
-          break;
-        } else if (board.isPieceOnSquare(this.x - row, this.y - row).isWhite == this.isWhite) {
-          this.addDefends(this.x - row, this.y - row);
-          break;
+    for (int com : new int[] { -1, 1 }) {
+      for (int inc : new int[] { -1, 1 }) {
+        for (int row = 1; row < 8; row++) {
+          if (this.x + (row * inc) < 8 && this.y + (row * inc * com) < 8 && this.x + (row * inc) >= 0
+              && this.y + (row * inc * com) >= 0) {
+            if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc * com) == null) {
+              this.addLegalMove(this.x + row * inc, this.y + row * inc * com, board);
+            } else if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc * com).isWhite != this.isWhite) {
+              this.addLegalMove(this.x + row * inc, this.y + row * inc * com, board);
+              // this.xRayAttack(board, this.x + row, this.y + row);
+              break;
+            } else if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc * com).isWhite == this.isWhite) {
+              this.addDefends(this.x + row * inc, this.y + row * inc * com);
+              break;
+            }
+          }
         }
       }
     }
