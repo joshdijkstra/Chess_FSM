@@ -37,12 +37,6 @@ public class Piece {
 
     public void addLegalMove(int row, int col, Board board) {
         int[] list = { row, col };
-        if (this.pieceType == PieceType.BISHOP) {
-            System.out.println(list[0] + " , " + list[1]);
-            System.out.println("King only moves: " + board.isOnlyKingMoves());
-            System.out.println("Masks: " + board.isRequiresMasks());
-
-        }
         if (!board.isOnlyKingMoves()) {
             if (board.isRequiresMasks()) {
                 for (int[] item : board.getPushMask()) {

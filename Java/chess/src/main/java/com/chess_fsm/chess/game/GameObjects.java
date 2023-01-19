@@ -4,7 +4,7 @@ import com.chess_fsm.chess.game.gameLogic.Board.Board;
 
 public class GameObjects {
     private final Board board;
-    private final String startingFen = "6k1/3pp3/8/1B7/Q7/8/8/4K3 w KQkq - 0 1";
+    private final String startingFen = "6k1/3pp3/8/1B7/R7/8/8/4K3 w KQkq - 0 1";
 
     public GameObjects() {
         this.board = new Board();
