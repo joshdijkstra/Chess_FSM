@@ -28,7 +28,9 @@ public class Perfet {
         for (String move : moves) {
             boardService.makeMove(board, move);
             nodes += this.run(depth - 1);
-            boardService.undoMove(board, move);
+            // this.board = boardService.undoMove(board);
+            System.out.println(this.board.toString());
+            System.out.println("\n\n\n\n");
         }
         return nodes;
 

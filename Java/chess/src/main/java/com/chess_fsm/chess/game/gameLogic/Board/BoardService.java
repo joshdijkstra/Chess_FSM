@@ -66,12 +66,4 @@ public class BoardService {
         board.setWhiteToMove(!board.isWhiteToMove());
     }
 
-    public void undoMove(Board board, String move) {
-        StringBuilder reversedMove = new StringBuilder();
-        reversedMove.append(move.charAt(2));
-        reversedMove.append(move.charAt(3));
-        reversedMove.append(move.charAt(0));
-        reversedMove.append(move.charAt(1));
-        this.makeMove(board, reversedMove.toString());
-    }
 }

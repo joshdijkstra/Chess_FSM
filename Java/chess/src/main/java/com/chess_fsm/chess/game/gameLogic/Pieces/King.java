@@ -1,7 +1,5 @@
 package com.chess_fsm.chess.game.gameLogic.Pieces;
 
-import java.util.List;
-
 import com.chess_fsm.chess.game.dto.Move;
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
 import static com.chess_fsm.chess.game.gameState.Decoders.*;

@@ -30,7 +30,6 @@ public class Board {
   private boolean whiteToMove = true;
   private boolean onlyKingMoves;
   private List<String> legalMoves;
-
   private List<int[]> captureMask;
   private List<int[]> pushMask;
   private boolean requiresMasks;
@@ -206,12 +205,14 @@ public class Board {
       }
     }
     this.onlyKingMoves = false;
-    System.out.println("Number of checkers: " + numCheckers);
     if (numCheckers > 1) {
       this.onlyKingMoves = true;
       boardService.recalculateLegalMoves(this);
+      this.setRequiresMasks(false);
+
       return;
-    } else if (numCheckers == 1) {
+    }
+    if (numCheckers == 1) {
       // Find capture mask
       List<int[]> captureMask = new ArrayList<int[]>();
       captureMask.add(new int[] { checker.x, checker.y });
@@ -219,6 +220,8 @@ public class Board {
       this.getPushMask(isWhite, checker, king);
       this.setRequiresMasks(true);
       boardService.recalculateLegalMoves(this);
+      this.setRequiresMasks(false);
+
       return;
     }
     king.setInCheck(false);
@@ -228,25 +231,26 @@ public class Board {
 
   public void getPushMask(boolean isWhite, Piece checker, Piece king) {
     List<int[]> pushMask = new ArrayList<int[]>();
-    int xDif = 0;
-    int yDif = 0;
-    if (checker.x - king.x != 0) {
-      xDif = (checker.x - king.x) / Math.abs(checker.x - king.x);
-    }
-    if (checker.y - king.y != 0) {
-      yDif = (checker.y - king.y) / Math.abs(checker.y - king.y);
+    int xMin = Math.min(checker.x, king.x);
+    int xMax = Math.max(checker.x, king.x);
+    int yMin = Math.min(checker.y, king.y);
+    int yMax = Math.max(checker.y, king.y);
 
-    }
+    if (checker.x == king.x || checker.y == king.y) {
+      // rook case
+      for (int i = xMin + 1; i < xMax; i++) {
+        pushMask.add(new int[] { i, checker.y });
+      }
+      for (int i = yMin + 1; i < yMax; i++) {
+        pushMask.add(new int[] { checker.x, i });
 
-    int x = king.x + xDif;
-    do {
-      int y = king.y + yDif;
-      do {
-        pushMask.add(new int[] { x, y });
-        y += yDif;
-      } while (y != (checker.y));
-      x += xDif;
-    } while (x != (checker.x));
+      }
+    } else if (Math.abs(checker.x - king.x) == Math.abs(checker.y - king.y)) {
+      // bishop case
+      for (int i = xMin + 1, j = yMin + 1; i < xMax; i++, j++) {
+        pushMask.add(new int[] { i, j });
+      }
+    }
     this.setPushMask(pushMask);
   }
 }

@@ -11,10 +11,10 @@ public class ChessApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ChessApplication.class, args);
-		String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
-		Perfet perf = new Perfet(fen, new BoardService());
-		int depth = perf.run(2);
-		System.out.println(depth);
+		// String fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 ";
+		// Perfet perf = new Perfet(fen, new BoardService());
+		// int depth = perf.run(2);
+		// System.out.println(depth);
 	}
 
 }

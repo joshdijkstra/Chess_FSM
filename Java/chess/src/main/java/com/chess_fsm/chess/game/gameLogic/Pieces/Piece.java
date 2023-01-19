@@ -18,6 +18,7 @@ public class Piece {
     public PieceType pieceType;
     public List<int[]> legalMoves;
     public List<int[]> defends;
+    public boolean isPinned;
 
     public Piece(int x, int y, boolean isWhite, PieceType pieceType) {
         this.x = x;
@@ -26,7 +27,6 @@ public class Piece {
         this.pieceType = pieceType;
         this.legalMoves = new ArrayList<int[]>();
         this.defends = new ArrayList<int[]>();
-
     }
 
     @Override
@@ -37,7 +37,13 @@ public class Piece {
 
     public void addLegalMove(int row, int col, Board board) {
         int[] list = { row, col };
-        if (!board.isOnlyKingMoves() || board.isWhiteToMove() != this.isWhite) {
+        if (this.pieceType == PieceType.BISHOP) {
+            System.out.println(list[0] + " , " + list[1]);
+            System.out.println("King only moves: " + board.isOnlyKingMoves());
+            System.out.println("Masks: " + board.isRequiresMasks());
+
+        }
+        if (!board.isOnlyKingMoves()) {
             if (board.isRequiresMasks()) {
                 for (int[] item : board.getPushMask()) {
                     if (Arrays.equals(item, list)) {
