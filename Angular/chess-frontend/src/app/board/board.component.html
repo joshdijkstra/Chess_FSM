@@ -4,6 +4,7 @@
       *ngFor="let hTile of axisHorizontal; let i = index"
       class="tile"
       [ngClass]="{
+        attackedSquareWhite: isSquareAttacked(j, playerWhite ? 7 - i : i),
         legalTile:
           isLegalSquare(j, playerWhite ? 7 - i : i) &&
           !hasPieceOn(j, playerWhite ? 7 - i : i),
@@ -21,7 +22,6 @@
           'background-image':
             'url(' + lookUpImage(j, playerWhite ? 7 - i : i) + ')'
         }"
-        (mousemove)="movePiece($event)"
         (mousedown)="grabPiece($event)"
         (mouseup)="dropPiece($event)"
       ></div>

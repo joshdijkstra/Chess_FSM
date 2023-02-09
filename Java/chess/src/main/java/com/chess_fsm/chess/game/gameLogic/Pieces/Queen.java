@@ -8,7 +8,7 @@ public class Queen extends Piece {
     super(x, y, isWhite, PieceType.QUEEN);
   }
 
-  public void getLegalMoves(Board board) {
+  public void pseudoMoveGenerator(Board board) {
     this.clearLegalMoves();
     this.clearDefenders();
 
@@ -19,10 +19,10 @@ public class Queen extends Piece {
               && this.y + (row * com) * inc >= 0
               && this.y + (row * com) * inc < 8) {
             if (board.isPieceOnSquare(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc) == null) {
-              this.addLegalMove(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc, board);
+              this.addPseudoMove(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc, board);
             } else if (board.isPieceOnSquare(this.x + (row * (1 - com) * inc),
                 this.y + (row * com) * inc).isWhite != this.isWhite) {
-              this.addLegalMove(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc, board);
+              this.addPseudoMove(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc, board);
               break;
             } else if (board.isPieceOnSquare(this.x + (row * (1 - com) * inc),
                 this.y + (row * com) * inc).isWhite == this.isWhite) {
@@ -40,9 +40,9 @@ public class Queen extends Piece {
           if (this.x + (row * inc) < 8 && this.y + (row * inc * com) < 8 && this.x + (row * inc) >= 0
               && this.y + (row * inc * com) >= 0) {
             if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc * com) == null) {
-              this.addLegalMove(this.x + row * inc, this.y + row * inc * com, board);
+              this.addPseudoMove(this.x + row * inc, this.y + row * inc * com, board);
             } else if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc * com).isWhite != this.isWhite) {
-              this.addLegalMove(this.x + row * inc, this.y + row * inc * com, board);
+              this.addPseudoMove(this.x + row * inc, this.y + row * inc * com, board);
               // this.xRayAttack(board, this.x + row, this.y + row);
               break;
             } else if (board.isPieceOnSquare(this.x + row * inc, this.y + row * inc * com).isWhite == this.isWhite) {

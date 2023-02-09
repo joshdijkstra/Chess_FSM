@@ -73,15 +73,15 @@ public class Board {
     return Arrays.deepToString(this.squares);
   }
 
-  public void getAttackedSquares() {
-    for (int x = 0; x < 8; x++) {
-      for (int y = 0; y < 8; y++) {
-        getSquare(x, y).isAttacked(this.isSquareAttacked(x, y, false), false);
-        getSquare(x, y).isAttacked(this.isSquareAttacked(x, y, true), true);
+  // public void getAttackedSquares() {
+  // for (int x = 0; x < 8; x++) {
+  // for (int y = 0; y < 8; y++) {
+  // getSquare(x, y).isAttacked(this.isSquareAttacked(x, y, false), false);
+  // getSquare(x, y).isAttacked(this.isSquareAttacked(x, y, true), true);
 
-      }
-    }
-  }
+  // }
+  // }
+  // }
 
   public Square getSquare(int x, int y) {
     return squares[x][y];
@@ -108,30 +108,30 @@ public class Board {
       }
     }
     return false;
-
   }
 
-  public boolean isSquareAttacked(int x, int y, boolean isWhite) {
-    List<Piece> pieces = isWhite ? this.getBlackPieces() : this.getWhitePieces();
-    for (Piece piece : pieces) {
-      for (int[] defend : piece.getDefends()) {
-        if (piece.isWhite != isWhite && defend[0] == x && defend[1] == y) {
-          return true;
-        }
-      }
-      for (int[] legalMove : piece.getLegalMoves()) {
-        if (piece.pieceType != PieceType.PAWN && piece.isWhite != isWhite && legalMove[0] == x && legalMove[1] == y) {
-          return true;
-        }
-      }
-      if (piece.pieceType == PieceType.PAWN && piece.isWhite != isWhite) {
-        if (this.getPawnAttacks(piece, x, y, isWhite)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+  // public boolean isSquareAttacked(int x, int y, boolean isWhite) {
+  // List<Piece> pieces = isWhite ? this.getBlackPieces() : this.getWhitePieces();
+  // for (Piece piece : pieces) {
+  // for (int[] defend : piece.getDefends()) {
+  // if (piece.isWhite != isWhite && defend[0] == x && defend[1] == y) {
+  // return true;
+  // }
+  // }
+  // for (int[] legalMove : piece.getLegalMoves()) {
+  // if (piece.pieceType != PieceType.PAWN && piece.isWhite != isWhite &&
+  // legalMove[0] == x && legalMove[1] == y) {
+  // return true;
+  // }
+  // }
+  // if (piece.pieceType == PieceType.PAWN && piece.isWhite != isWhite) {
+  // if (this.getPawnAttacks(piece, x, y, isWhite)) {
+  // return true;
+  // }
+  // }
+  // }
+  // return false;
+  // }
 
   public void initPieces(String fen) {
     // Split the FEN string into its different parts
@@ -204,6 +204,7 @@ public class Board {
         }
       }
     }
+    System.out.println(numCheckers);
     this.onlyKingMoves = false;
     if (numCheckers > 1) {
       this.onlyKingMoves = true;
@@ -227,6 +228,16 @@ public class Board {
     king.setInCheck(false);
     this.setRequiresMasks(false);
 
+  }
+
+  public void removeKing(boolean isWhite) {
+    Piece king = isWhite ? this.getWhiteKing() : this.getBlackKing();
+    this.setSquare(king.x, king.y, new Square(king.x, king.y));
+  }
+
+  public void returnKingToBoard(boolean isWhite) {
+    Piece king = isWhite ? this.getWhiteKing() : this.getBlackKing();
+    this.getSquare(king.x, king.y).setPiece(king);
   }
 
   public void getPushMask(boolean isWhite, Piece checker, Piece king) {

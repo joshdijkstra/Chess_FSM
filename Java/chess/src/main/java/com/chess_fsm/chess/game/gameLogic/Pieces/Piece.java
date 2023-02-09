@@ -17,6 +17,8 @@ public class Piece {
     public boolean isWhite;
     public PieceType pieceType;
     public List<int[]> legalMoves;
+    public List<int[]> pseudoMoves;
+
     public List<int[]> defends;
     public boolean isPinned;
 
@@ -25,7 +27,7 @@ public class Piece {
         this.y = y;
         this.isWhite = isWhite;
         this.pieceType = pieceType;
-        this.legalMoves = new ArrayList<int[]>();
+        this.pseudoMoves = new ArrayList<int[]>();
         this.defends = new ArrayList<int[]>();
     }
 
@@ -35,29 +37,11 @@ public class Piece {
                 + legalMoves + "]";
     }
 
-    public void addLegalMove(int row, int col, Board board) {
+    public void addPseudoMove(int row, int col, Board board) {
         int[] list = { row, col };
-        if (!board.isOnlyKingMoves()) {
-            if (board.isRequiresMasks()) {
-                for (int[] item : board.getPushMask()) {
-                    if (Arrays.equals(item, list)) {
-                        this.legalMoves.add(list);
-                        board.addLegalMove(moveEncoder(new Move(new int[] { this.x, this.y }, list)));
-                        return;
-                    }
-                }
-                for (int[] item : board.getCaptureMask()) {
-                    if (Arrays.equals(item, list)) {
-                        this.legalMoves.add(list);
-                        board.addLegalMove(moveEncoder(new Move(new int[] { this.x, this.y }, list)));
-                        return;
-                    }
-                }
-            } else {
-                this.legalMoves.add(list);
-                board.addLegalMove(moveEncoder(new Move(new int[] { this.x, this.y }, list)));
-            }
-        }
+        this.pseudoMoves.add(list);
+        board.addLegalMove(moveEncoder(new Move(new int[] { this.x, this.y }, list)));
+        return;
     }
 
     public void addDefends(int row, int col) {
@@ -65,7 +49,7 @@ public class Piece {
         this.defends.add(list);
     }
 
-    public void getLegalMoves(Board board) {
+    public void pseudoMoveGenerator(Board board) {
         System.out.println("Overwrite");
     }
 

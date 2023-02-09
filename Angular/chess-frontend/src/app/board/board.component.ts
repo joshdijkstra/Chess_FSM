@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { take } from 'rxjs';
+import {
+  animationFrameScheduler,
+  fromEvent,
+  map,
+  subscribeOn,
+  switchMap,
+  take,
+  takeUntil,
+} from 'rxjs';
 import { Pieces } from '../model/Piece';
 import { moveDTO } from '../model/moveDTO';
 
@@ -87,7 +95,6 @@ export class BoardComponent {
   };
 
   public isSquareAttacked = (x: number, y: number) => {
-    console.log(this.board.squares[x][y].attackedWhite);
     return this.board.squares[x][y].attackedWhite;
   };
 
@@ -145,30 +152,40 @@ export class BoardComponent {
   };
 
   public grabPiece = (e: MouseEvent) => {
+    const box = e.target as HTMLElement;
     const element = e.target as HTMLElement;
     this.originalX = element.offsetLeft;
     this.originalY = element.offsetTop;
-    const x = e.clientX - 50;
-    const y = e.clientY - 50;
-    element.style.position = 'absolute';
-    element.style.left = `${x}px`;
-    element.style.top = `${y}px`;
-
     this.activeElement = element;
     this.activeX = Math.floor((e.clientX - this.offsetLeft) / 100);
     this.activeY = this.playerWhite
       ? Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100))
       : 7 - Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100));
-  };
 
-  public movePiece = (e: MouseEvent) => {
-    if (this.activeElement) {
-      const x = e.clientX - 50;
-      const y = e.clientY - 50;
-      this.activeElement.style.position = 'absolute';
-      this.activeElement.style.left = `${x}px`;
-      this.activeElement.style.top = `${y}px`;
-    }
+    const mousedown$ = fromEvent<MouseEvent>(box, 'mousedown');
+    const mousemove$ = fromEvent<MouseEvent>(document, 'mousemove');
+    const mouseup$ = fromEvent<MouseEvent>(box, 'mouseup');
+
+    const drag$ = mousedown$.pipe(
+      switchMap((start) => {
+        return mousemove$.pipe(
+          map((move) => {
+            move.preventDefault();
+            return {
+              left: move.clientX - start.offsetX - 50,
+              top: move.clientY - start.offsetY - 50,
+            };
+          }),
+          takeUntil(mouseup$)
+        );
+      })
+    );
+    const position$ = drag$.pipe(subscribeOn(animationFrameScheduler));
+
+    position$.subscribe((pos) => {
+      box.style.top = `${pos.top}px`;
+      box.style.left = `${pos.left}px`;
+    });
   };
 
   public dropPiece = (e: MouseEvent) => {
@@ -178,16 +195,7 @@ export class BoardComponent {
         ? Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100))
         : 7 - Math.abs(Math.ceil((e.clientY - this.offsetTop - 800) / 100));
       if (this.isLegalSquare(targetX, targetY)) {
-        // if (
-        //   this.board.squares[this.activeX][this.activeY].piece.pieceType ==
-        //     Pieces.PAWN &&
-        //   (targetY == 0 || targetY == 7)
-        // ) {
-        //   console.log('PROMOTION');
-        //   this.promote(targetX, targetY);
-        // } else {
         this.makeMove(this.activeX, this.activeY, targetX, targetY);
-        // }
       } else {
         this.activeElement.style.position = 'absolute';
         this.activeElement.style.left = `${this.originalX}px`;
@@ -205,9 +213,4 @@ export class BoardComponent {
     this.promoting = true;
     this.makeMove(this.activeX, this.activeY, x, y);
   };
-
-  // public getPromotionPos = () => {
-  //   console.log(this.targetX);
-  //   return Number(this.targetX * 100);
-  // };
 }

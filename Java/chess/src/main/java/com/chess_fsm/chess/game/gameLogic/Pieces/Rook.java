@@ -12,7 +12,7 @@ public class Rook extends Piece {
     super(x, y, isWhite, PieceType.ROOK);
   }
 
-  public void getLegalMoves(Board board) {
+  public void pseudoMoveGenerator(Board board) {
     this.clearLegalMoves();
     this.clearDefenders();
 
@@ -23,10 +23,10 @@ public class Rook extends Piece {
               && this.y + (row * com) * inc >= 0
               && this.y + (row * com) * inc < 8) {
             if (board.isPieceOnSquare(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc) == null) {
-              this.addLegalMove(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc, board);
+              this.addPseudoMove(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc, board);
             } else if (board.isPieceOnSquare(this.x + (row * (1 - com) * inc),
                 this.y + (row * com) * inc).isWhite != this.isWhite) {
-              this.addLegalMove(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc, board);
+              this.addPseudoMove(this.x + (row * (1 - com) * inc), this.y + (row * com) * inc, board);
               break;
             } else if (board.isPieceOnSquare(this.x + (row * (1 - com) * inc),
                 this.y + (row * com) * inc).isWhite == this.isWhite) {
