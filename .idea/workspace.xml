@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a59333b6-6153-4c7f-8130-0103794f92aa" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/.vscode/extensions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/.vscode/tasks.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/angular.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/app-routing.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/app.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/app.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/app.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/app.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/app.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/board/board.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/board/board.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/board/board.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/board/board.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/model/Board.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/model/Piece.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/model/Square.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/app/model/moveDTO.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/38619.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/bishop_b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/bishop_w.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/dot_PNG29.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/king_b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/king_w.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/knight_b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/knight_w.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/pawn_b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/pawn_w.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/queen_b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/queen_w.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/rook_b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/rook_w.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/sockjs.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/assets/stomp.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/proxy.conf.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/src/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/tsconfig.app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Angular/chess-frontend/tsconfig.spec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_bdt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_blt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_kdt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_klt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_ndt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_nlt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_pdt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_plt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_qdt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_qlt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_rdt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/Chess_rlt60.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/board1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/board2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/ChessPieces/board3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/board.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/chess.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python/pieces.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2M04NUdqNhRf8V7mpRther6wdn4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a59333b6-6153-4c7f-8130-0103794f92aa" name="Changes" comment="" />
+      <created>1676891128657</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1676891128657</updated>
+    </task>
+    <servers />
+  </component>
+</project>
