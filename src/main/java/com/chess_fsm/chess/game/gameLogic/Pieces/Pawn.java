@@ -9,7 +9,8 @@ public class Pawn extends Piece {
   }
 
   public void pseudoMoveGenerator(Board board) {
-    this.clearLegalMoves();
+    this.clearMoves();
+
 
     int increment = this.isWhite ? 1 : -1;
     int boardPos = this.isWhite ? 1 : 6;

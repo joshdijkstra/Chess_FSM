@@ -20,16 +20,16 @@ public class GameController {
         this.gameService = gameService;
     }
 
-    @MessageMapping("/startGame")
-    @SendTo("/topic/messages")
-    public ResponseEntity<Board> getBoard() {
-        return new ResponseEntity<Board>(gameService.startNewGame(), HttpStatus.OK);
-    }
+    // @MessageMapping("/startGame")
+    // @SendTo("/topic/messages")
+    // public ResponseEntity<Board> getBoard() {
+    //     return new ResponseEntity<Board>(gameService.startNewGame(), HttpStatus.OK);
+    // }
 
-    @MessageMapping("/makeMove")
-    @SendTo("/topic/messages")
-    public ResponseEntity<Board> move(@RequestBody String moveObj) {
-        return new ResponseEntity<Board>(gameService.makeMove(moveObj), HttpStatus.OK);
-    }
+    // @MessageMapping("/makeMove")
+    // @SendTo("/topic/messages")
+    // public ResponseEntity<Board> move(@RequestBody String moveObj) {
+    //     return new ResponseEntity<Board>(gameService.makeMove(moveObj), HttpStatus.OK);
+    // }
 
 }

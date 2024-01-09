@@ -2,6 +2,7 @@ package com.chess_fsm.chess.game.gameLogic.Board;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import com.chess_fsm.chess.game.dto.moveDTO;
@@ -29,7 +30,7 @@ public class Board {
   private Piece whiteKing;
   private boolean whiteToMove = true;
   private boolean onlyKingMoves;
-  private List<String> legalMoves;
+  private HashSet<String> legalMoves;
   private List<int[]> captureMask;
   private List<int[]> pushMask;
   private boolean requiresMasks;
@@ -38,7 +39,7 @@ public class Board {
     this.piecesAll = new ArrayList<Piece>();
     this.whitePieces = new ArrayList<Piece>();
     this.blackPieces = new ArrayList<Piece>();
-    this.legalMoves = new ArrayList<String>();
+    this.legalMoves = new HashSet<String>();
     squares = new Square[8][8];
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
@@ -110,28 +111,28 @@ public class Board {
     return false;
   }
 
-  // public boolean isSquareAttacked(int x, int y, boolean isWhite) {
-  // List<Piece> pieces = isWhite ? this.getBlackPieces() : this.getWhitePieces();
-  // for (Piece piece : pieces) {
-  // for (int[] defend : piece.getDefends()) {
-  // if (piece.isWhite != isWhite && defend[0] == x && defend[1] == y) {
-  // return true;
-  // }
-  // }
-  // for (int[] legalMove : piece.getLegalMoves()) {
-  // if (piece.pieceType != PieceType.PAWN && piece.isWhite != isWhite &&
-  // legalMove[0] == x && legalMove[1] == y) {
-  // return true;
-  // }
-  // }
-  // if (piece.pieceType == PieceType.PAWN && piece.isWhite != isWhite) {
-  // if (this.getPawnAttacks(piece, x, y, isWhite)) {
-  // return true;
-  // }
-  // }
-  // }
-  // return false;
-  // }
+  public boolean isSquareAttacked(int x, int y, boolean isWhite) {
+  List<Piece> pieces = isWhite ? this.getBlackPieces() : this.getWhitePieces();
+  for (Piece piece : pieces) {
+  for (int[] defend : piece.getDefends()) {
+  if (piece.isWhite != isWhite && defend[0] == x && defend[1] == y) {
+  return true;
+  }
+  }
+  for (int[] legalMove : piece.getLegalMoves()) {
+  if (piece.pieceType != PieceType.PAWN && piece.isWhite != isWhite &&
+  legalMove[0] == x && legalMove[1] == y) {
+  return true; 
+  }
+  }
+  if (piece.pieceType == PieceType.PAWN && piece.isWhite != isWhite) {
+  if (this.getPawnAttacks(piece, x, y, isWhite)) {
+  return true;
+  }
+  }
+  }
+  return false;
+  }
 
   public void initPieces(String fen) {
     // Split the FEN string into its different parts

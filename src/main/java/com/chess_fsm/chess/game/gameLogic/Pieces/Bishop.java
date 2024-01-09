@@ -9,8 +9,7 @@ public class Bishop extends Piece {
   }
 
   public void pseudoMoveGenerator(Board board) {
-    this.clearLegalMoves();
-    this.clearDefenders();
+    this.clearMoves();
 
     for (int com : new int[] { -1, 1 }) {
       for (int inc : new int[] { -1, 1 }) {

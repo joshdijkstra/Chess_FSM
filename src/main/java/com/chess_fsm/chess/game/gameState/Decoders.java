@@ -10,6 +10,7 @@ public class Decoders {
         Move mv = new Move(
                 new int[] { new String(xAxis).indexOf(move.charAt(0)), new String(yAxis).indexOf(move.charAt(1)) },
                 new int[] { new String(xAxis).indexOf(move.charAt(2)), new String(yAxis).indexOf(move.charAt(3)) });
+        System.out.println(mv);
         return mv;
     }
 

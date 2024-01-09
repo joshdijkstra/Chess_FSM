@@ -37,7 +37,7 @@ public class BoardService {
     }
 
     public void recalculateLegalMoves(Board board) {
-        board.setLegalMoves(new ArrayList<String>());
+        board.getLegalMoves().clear();
         for (Piece piece : board.getPiecesAll()) {
             piece.pseudoMoveGenerator(board);
         }
@@ -77,6 +77,9 @@ public class BoardService {
         int xDif = moves.getMoveTo()[0] - moves.getPieceAt()[0];
         Square current = board.getSquare(moves.getPieceAt()[0], moves.getPieceAt()[1]);
         Square moveTo = board.getSquare(moves.getMoveTo()[0], moves.getMoveTo()[1]);
+        if (current == moveTo){
+            return;
+        }
         current.getPiece().updateXY(moves.getMoveTo()[0], moves.getMoveTo()[1]);
         if (current.getPiece().pieceType == PieceType.KING || current.getPiece().pieceType == PieceType.ROOK) {
             current.getPiece().setHasMoved(true);

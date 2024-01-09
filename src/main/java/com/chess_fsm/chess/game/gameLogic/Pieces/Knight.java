@@ -9,8 +9,8 @@ public class Knight extends Piece {
   }
 
   public void pseudoMoveGenerator(Board board) {
-    this.clearLegalMoves();
-    this.clearDefenders();
+    this.clearMoves();
+
     int[] permutations = { -2, -1, 1, 2 };
     int[] ones = { -1, 1 };
     int[] twos = { -2, 2 };

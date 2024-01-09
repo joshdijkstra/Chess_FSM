@@ -1,8 +1,6 @@
 package com.chess_fsm.chess.game.gameLogic.Pieces;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
 
 import com.chess_fsm.chess.game.dto.Move;
 import com.chess_fsm.chess.game.gameLogic.Board.Board;
@@ -16,10 +14,10 @@ public class Piece {
     public int y;
     public boolean isWhite;
     public PieceType pieceType;
-    public List<int[]> legalMoves;
-    public List<int[]> pseudoMoves;
+    public HashSet<int[]> legalMoves;
+    public HashSet<int[]> pseudoMoves;
 
-    public List<int[]> defends;
+    public HashSet<int[]> defends;
     public boolean isPinned;
 
     public Piece(int x, int y, boolean isWhite, PieceType pieceType) {
@@ -27,8 +25,9 @@ public class Piece {
         this.y = y;
         this.isWhite = isWhite;
         this.pieceType = pieceType;
-        this.pseudoMoves = new ArrayList<int[]>();
-        this.defends = new ArrayList<int[]>();
+        this.pseudoMoves = new HashSet<int[]>();
+        this.defends = new HashSet<int[]>();        
+        this.legalMoves = new HashSet<int[]>();
     }
 
     @Override
@@ -53,12 +52,10 @@ public class Piece {
         System.out.println("Overwrite");
     }
 
-    public void clearLegalMoves() {
-        this.setLegalMoves(new ArrayList<int[]>());
-    }
-
-    public void clearDefenders() {
-        this.setDefends(new ArrayList<int[]>());
+    public void clearMoves() {
+        this.getPseudoMoves().clear();
+        this.getLegalMoves().clear();   
+        this.getDefends().clear();
     }
 
     public void updateXY(int i, int j) {

@@ -13,9 +13,7 @@ public class Rook extends Piece {
   }
 
   public void pseudoMoveGenerator(Board board) {
-    this.clearLegalMoves();
-    this.clearDefenders();
-
+    this.clearMoves();
     for (int com : new int[] { 1, 0 }) {
       for (int inc : new int[] { 1, -1 }) {
         for (int row = 1; row < 8; row++) {
